@@ -19,7 +19,7 @@ class Background:
 
     def draw(self):
         self.background_image.clip_draw(0,0,monitor_width,monitor_height,self.x, self.y)
-        self.farm_image.clip_draw(0, 0, 281, 279, 350, 500)
+        self.farm_image.clip_draw(0, 0, 281, 279, 300, 550)
         self.greenhouse_image.clip_draw(0, 0, 280, 400, 1300, 600)
         self.house_image.clip_draw(0, 0, 363, 361, 900, 650)
 
