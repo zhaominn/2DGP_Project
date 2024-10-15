@@ -10,11 +10,18 @@ class Background:
     stage_num=None #0 시작 화면 1 기본 화면
     def __init__(self):
         self.x, self.y = monitor_width/2, monitor_height/2
-        self.image = load_image('image//background//spring_ground.png')
-        Background.stage_num=1
+        Background.stage_num = 1
+
+        self.background_image = load_image('image//stage1_background//spring_ground.png')
+        self.farm_image =load_image('image///stage1_background/farm.png')
+        self.greenhouse_image = load_image('image///stage1_background/greenhouse.png')
+        self.house_image = load_image('image///stage1_background/house.png')
 
     def draw(self):
-        self.image.clip_draw(0,0,monitor_width,monitor_height,self.x, self.y)
+        self.background_image.clip_draw(0,0,monitor_width,monitor_height,self.x, self.y)
+        self.farm_image.clip_draw(0, 0, 281, 279, 350, 500)
+        self.greenhouse_image.clip_draw(0, 0, 280, 400, 1300, 600)
+        self.house_image.clip_draw(0, 0, 363, 361, 900, 650)
 
     def update(self):
         pass
