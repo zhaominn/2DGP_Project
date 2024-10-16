@@ -11,9 +11,11 @@ class Background:
     def __init__(self):
         self.x, self.y = monitor_width/2, monitor_height/2
         self.stage_num = 0
+        self.frame=0
 
         # 이미지 로딩
         self.background0_image = load_image('image//stage0_start//start_image.png')
+        self.background0_text_image = load_image('image//stage0_start//start_text.png')
 
         self.background1_image = load_image('image//stage1_background//spring_ground.png')
         self.farm_image =load_image('image///stage1_background/farm.png')
@@ -28,6 +30,7 @@ class Background:
 
     def draw_start_screen(self):
         self.background0_image.clip_draw(0, 0, monitor_width, monitor_height, self.x, self.y)
+        self.background0_text_image.clip_draw(0, 0, 1200, 200, self.x, 200+self.frame*5)
 
     def draw_main_screen(self):
         self.background1_image.clip_draw(0, 0, monitor_width, monitor_height, self.x, self.y)
@@ -36,7 +39,11 @@ class Background:
         self.house_image.clip_draw(0, 0, 363, 361, 900, 650)
 
     def update(self):
-        pass
+        if self.stage_num == 0:
+            self.frame=(self.frame+1)%3
+            delay(0.1)
+        else:
+            pass
 
 def handle_events():
     global running
