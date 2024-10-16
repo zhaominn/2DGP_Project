@@ -17,10 +17,10 @@ class StageManager:
         self.background0_image = load_image('image//stage0_start//start_image.png')
         self.background0_text_image = load_image('image//stage0_start//start_text.png')
 
-        self.background1_image = load_image('image//stage1_background//spring_ground.png')
-        self.farm_image =load_image('image///stage1_background/farm.png')
-        self.greenhouse_image = load_image('image///stage1_background/greenhouse.png')
-        self.house_image = load_image('image///stage1_background/house.png')
+        self.background1_image = load_image('image//stage1_main//spring_ground.png')
+        self.farm_image =load_image('image///stage1_main/farm.png')
+        self.greenhouse_image = load_image('image///stage1_main/greenhouse.png')
+        self.house_image = load_image('image///stage1_main/house.png')
 
     def draw(self):
         if self.stage_num == 0:
@@ -30,7 +30,7 @@ class StageManager:
 
     def draw_start_screen(self):
         self.background0_image.clip_draw(0, 0, monitor_width, monitor_height, self.x, self.y)
-        self.background0_text_image.clip_draw(0, 0, 600, 100, self.x, 150+self.frame*5)
+        self.background0_text_image.clip_draw(0, 0, 600, 100, self.x, 150+self.frame*3)
 
     def draw_main_screen(self):
         self.background1_image.clip_draw(0, 0, monitor_width, monitor_height, self.x, self.y)
@@ -40,7 +40,7 @@ class StageManager:
 
     def update(self):
         if self.stage_num == 0:
-            self.frame=(self.frame+1)%3
+            self.frame=(self.frame+1)%5
             delay(0.1)
         else:
             pass
