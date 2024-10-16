@@ -6,7 +6,7 @@ root = tkinter.Tk()
 monitor_height = root.winfo_screenheight()
 monitor_width = root.winfo_screenwidth()
 
-class Background:
+class StageManager:
     stage_num=None #0 시작 화면 1 기본 화면
     def __init__(self):
         self.x, self.y = monitor_width/2, monitor_height/2
@@ -30,7 +30,7 @@ class Background:
 
     def draw_start_screen(self):
         self.background0_image.clip_draw(0, 0, monitor_width, monitor_height, self.x, self.y)
-        self.background0_text_image.clip_draw(0, 0, 1200, 200, self.x, 200+self.frame*5)
+        self.background0_text_image.clip_draw(0, 0, 600, 100, self.x, 150+self.frame*5)
 
     def draw_main_screen(self):
         self.background1_image.clip_draw(0, 0, monitor_width, monitor_height, self.x, self.y)
@@ -52,21 +52,21 @@ def handle_events():
     for event in events:
         if event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
             running = False
-        elif event.key == SDLK_RETURN and background.stage_num == 0:
-            background.stage_num = 1
+        elif event.key == SDLK_RETURN and stage_maanager.stage_num == 0:
+            stage_maanager.stage_num = 1
         else:
             pass
 
 def reset_world():
     global running
     global world
-    global background
+    global stage_maanager
 
     running = True
     world = []
 
-    background = Background()
-    world.append(background)
+    stage_maanager = StageManager()
+    world.append(stage_maanager)
 
 def update_world():
     for o in world:
