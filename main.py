@@ -70,17 +70,28 @@ class Player:
         else:
             self.frame=(self.frame+1)%2
 
+    
+
 def handle_events():
     global running
 
     events = get_events()
     for event in events:
-        if event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
-            running = False
-        elif event.key == SDLK_RETURN and stage_manager.stage_num == 0:
-            stage_manager.stage_num = 1
-        else:
-            pass
+        if event.type == SDL_KEYDOWN:
+            if event.key == SDLK_ESCAPE:
+                running = False
+            elif stage_manager.stage_num == 0:
+                if event.key == SDLK_RETURN:
+                    stage_manager.stage_num = 1
+            elif stage_manager.stage_num != 0:
+                if event.key == SDLK_DOWN:
+                    player.dir = 3
+                elif event.key == SDLK_UP:
+                    player.dir = 2
+                elif event.key == SDLK_LEFT:
+                    player.dir = 1
+                elif event.key == SDLK_RIGHT:
+                    player.dir = 0
 
 def reset_world():
     global running
