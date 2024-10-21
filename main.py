@@ -30,7 +30,7 @@ class Player:
     def update(self):
         if stage_manager.stage_num != 0:
             self.frame_count += 1
-            if self.frame_count >= 3:
+            if self.frame_count >= 20:
                 if self.status == 1:
                     self.frame=(self.frame+1)%2+2
                 else:
@@ -46,13 +46,13 @@ class Player:
 
     def move(self): #움직임
         if player.dir == 3:
-            self.y-=7
+            self.y-=5
         elif player.dir == 2:
-            self.y+=7
+            self.y+=5
         elif player.dir == 1:
-            self.x-=7
+            self.x-=5
         elif player.dir == 0:
-            self.x+=7
+            self.x+=5
 
         self.collision_frame()
 
@@ -155,6 +155,6 @@ while running:
     handle_events()
     update_world()
     render_world()
-    delay(0.1)
+    delay(0.01)
 
 close_canvas()
