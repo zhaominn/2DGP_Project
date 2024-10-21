@@ -18,9 +18,9 @@ class StageManager:
         self.background0_text_image = load_image('image//stage0_start//start_text.png')
 
         self.background1_image = load_image('image//stage1_main//spring_ground.png')
-        self.farm_image =load_image('image///stage1_main/farm.png')
-        self.greenhouse_image = load_image('image///stage1_main/greenhouse.png')
-        self.house_image = load_image('image///stage1_main/house.png')
+        self.farm_image =load_image('image//stage1_main/farm.png')
+        self.greenhouse_image = load_image('image//stage1_main//greenhouse.png')
+        self.house_image = load_image('image//stage1_main//house.png')
 
     def draw(self):
         if self.stage_num == 0:
@@ -45,6 +45,31 @@ class StageManager:
         else:
             pass
 
+class Player:
+    def __init__(self):
+        self.status = 0 # 0 idle 1 move 2 crop 3 mine 4 water
+        self.dir = 3 # 3 앞 2 뒤 1 왼쪽 0 오른쪽
+        self.frame = 0
+        self.x, self.y = monitor_width / 2, monitor_height / 2
+
+        self.basic_image = load_image('image//Player//player_basic.png')
+        self.action_image = load_image('image//Player//player_action.png')
+
+    def draw(self):
+        if stage_manager.stage_num != 0:
+            if self.status == 0:
+                self.basic_image.clip_draw(96*self.frame, 96*self.dir, 96, 96, self.x, self.y,200,200)
+            elif self.status==1:
+                pass
+            elif self.status >= 2 and self.status <= 4:
+                pass
+
+    def update(self):
+        if self.status == 1:
+            self.frame=(self.frame+1)%4
+        else:
+            self.frame=(self.frame+1)%2
+
 def handle_events():
     global running
 
@@ -52,21 +77,24 @@ def handle_events():
     for event in events:
         if event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
             running = False
-        elif event.key == SDLK_RETURN and stage_maanager.stage_num == 0:
-            stage_maanager.stage_num = 1
+        elif event.key == SDLK_RETURN and stage_manager.stage_num == 0:
+            stage_manager.stage_num = 1
         else:
             pass
 
 def reset_world():
     global running
     global world
-    global stage_maanager
+    global stage_manager
+    global player
 
     running = True
     world = []
 
-    stage_maanager = StageManager()
-    world.append(stage_maanager)
+    stage_manager = StageManager()
+    world.append(stage_manager)
+    player=Player()
+    world.append(player)
 
 def update_world():
     for o in world:
@@ -86,6 +114,6 @@ while running:
     handle_events()
     update_world()
     render_world()
-    delay(0.01)
+    delay(0.2)
 
 close_canvas()
