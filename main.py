@@ -9,7 +9,7 @@ monitor_width = root.winfo_screenwidth()
 
 class Player:
     def __init__(self):
-        self.status = 0 # 0 idle 1 move 2 crop 3 mine 4 water
+        self.status = 0 # 0 idle 1 move 2 water 3 mine 4 crop
         self.dir = 3 # 3 앞 2 뒤 1 왼쪽 0 오른쪽
         self.frame = 0
         self.frame_count = 5  # 프레임 전환 간격을 조정하는 변수
@@ -24,6 +24,7 @@ class Player:
             if self.status == 0 or self.status==1:
                 self.basic_image.clip_draw(96 * self.frame, 96 * self.dir, 96, 96, self.x, self.y,200,200)
             elif self.status >= 2 and self.status <= 4:
+                self.action_image.clip_draw(96 * self.frame, 384 * (self.status-2) + 96 * self.dir, 96, 96, self.x, self.y, 200, 200)
                 pass
 
     def update(self):
@@ -66,9 +67,14 @@ class Player:
             elif player.dir == 0:
                 self.x -= 7
 
+    def use_tool(self, tool_num):
+        self.frame = 0
+        self.status=tool_num+2
+        #상호작용 구현?
+
 class Ui:
     def __init__(self):
-        self.tool_num = 0 # 0 곡괭이 1 괭이 2 물뿌리개
+        self.tool_num = 0 # 0 물뿌리개 1 곡괭이 2 괭이
 
         self.tool_image = load_image('image//ui//tool.png')
         self.tool_bar_image = load_image('image//ui//tool_bar.png')
@@ -109,7 +115,9 @@ def handle_events():
                     ui.tool_num = 1
                 elif event.key == SDLK_3:
                     ui.tool_num = 2
-        elif event.type == SDL_KEYUP:
+                elif event.key == SDLK_SPACE:
+                    player.use_tool(ui.tool_num)
+        elif event.type == SDL_KEYUP and player.status == 1:
             player.status = 0
 
 def reset_world():
