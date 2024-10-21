@@ -103,6 +103,12 @@ def handle_events():
                     player.move_key(1)
                 elif event.key == SDLK_RIGHT:
                     player.move_key(0)
+                elif event.key == SDLK_1:
+                    ui.tool_num=0
+                elif event.key == SDLK_2:
+                    ui.tool_num = 1
+                elif event.key == SDLK_3:
+                    ui.tool_num = 2
         elif event.type == SDL_KEYUP:
             player.status = 0
 
