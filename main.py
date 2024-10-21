@@ -73,18 +73,23 @@ class Player:
                 else:
                     self.frame=(self.frame+1)%2
                 self.frame_count = 0  # 카운터 초기화
+        if self.status == 1:
+            self.move()
 
-    def move(self, dir):
-        self.dir = dir
+    def move_key(self, dir):#방향 및 상태 변경
         self.status = 1
-        if dir==3:
-            pass
-        elif dir==2:
-            pass
-        elif dir==1:
-            pass
-        elif dir==0:
-            pass
+        self.dir = dir
+        self.move()
+
+    def move(self): #움직임
+        if player.dir == 3:
+            self.y-=7
+        elif player.dir == 2:
+            self.y+=7
+        elif player.dir == 1:
+            self.x-=7
+        elif player.dir == 0:
+            self.x+=7
 
 def handle_events():
     global running
@@ -99,15 +104,15 @@ def handle_events():
                     stage_manager.stage_num = 1
             elif stage_manager.stage_num != 0:
                 if event.key == SDLK_DOWN:
-                    player.move(3)
+                    player.move_key(3)
                 elif event.key == SDLK_UP:
-                    player.move(2)
+                    player.move_key(2)
                 elif event.key == SDLK_LEFT:
-                    player.move(1)
+                    player.move_key(1)
                 elif event.key == SDLK_RIGHT:
-                    player.move(0)
+                    player.move_key(0)
         elif event.type == SDL_KEYUP:
-            player.status=0
+            player.status = 0
 
 def reset_world():
     global running
