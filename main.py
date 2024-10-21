@@ -7,7 +7,6 @@ root = tkinter.Tk()
 monitor_height = root.winfo_screenheight()
 monitor_width = root.winfo_screenwidth()
 
-
 class Player:
     def __init__(self):
         self.status = 0 # 0 idle 1 move 2 crop 3 mine 4 water
@@ -67,6 +66,23 @@ class Player:
             elif player.dir == 0:
                 self.x -= 7
 
+class Ui:
+    def __init__(self):
+        self.tool_num = 0 # 0 곡괭이 1 괭이 2 물뿌리개
+
+        self.tool_image = load_image('image//ui//tool.png')
+        self.tool_bar_image = load_image('image//ui//tool_bar.png')
+        self.tool_frame_image = load_image('image//ui//tool_frame.png')
+
+    def draw(self):
+        if stage_manager.stage_num != 0:
+            self.tool_bar_image.clip_draw(0, 0, 1600, 112, monitor_width/2, 56)
+            self.tool_image.clip_draw(0, 0, 295, 102, 300, 51)
+            self.tool_frame_image.clip_draw(0, 0,102, 102, 204 + 96*self.tool_num, 51)
+
+    def update(self):
+        pass
+
 def handle_events():
     global running
 
@@ -95,14 +111,17 @@ def reset_world():
     global world
     global stage_manager
     global player
+    global ui
 
     running = True
     world = []
 
     stage_manager = StageManager()
     world.append(stage_manager)
-    player=Player()
+    player = Player()
     world.append(player)
+    ui = Ui()
+    world.append(ui)
 
 def update_world():
     for o in world:
