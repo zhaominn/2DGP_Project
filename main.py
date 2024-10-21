@@ -50,6 +50,8 @@ class Player:
         self.status = 0 # 0 idle 1 move 2 crop 3 mine 4 water
         self.dir = 3 # 3 앞 2 뒤 1 왼쪽 0 오른쪽
         self.frame = 0
+        self.frame_count = 5  # 프레임 전환 간격을 조정하는 변수
+
         self.x, self.y = monitor_width / 2, monitor_height / 2
 
         self.basic_image = load_image('image//Player//player_basic.png')
@@ -57,20 +59,32 @@ class Player:
 
     def draw(self):
         if stage_manager.stage_num != 0:
-            if self.status == 0:
-                self.basic_image.clip_draw(96*self.frame, 96*self.dir, 96, 96, self.x, self.y,200,200)
-            elif self.status==1:
-                pass
+            if self.status == 0 or self.status==1:
+                self.basic_image.clip_draw(96 * self.frame, 96 * self.dir, 96, 96, self.x, self.y,200,200)
             elif self.status >= 2 and self.status <= 4:
                 pass
 
     def update(self):
-        if self.status == 1:
-            self.frame=(self.frame+1)%4
-        else:
-            self.frame=(self.frame+1)%2
+        if stage_manager.stage_num != 0:
+            self.frame_count += 1
+            if self.frame_count >= 3:
+                if self.status == 1:
+                    self.frame=(self.frame+1)%2+2
+                else:
+                    self.frame=(self.frame+1)%2
+                self.frame_count = 0  # 카운터 초기화
 
-    
+    def move(self, dir):
+        self.dir = dir
+        self.status = 1
+        if dir==3:
+            pass
+        elif dir==2:
+            pass
+        elif dir==1:
+            pass
+        elif dir==0:
+            pass
 
 def handle_events():
     global running
@@ -85,13 +99,15 @@ def handle_events():
                     stage_manager.stage_num = 1
             elif stage_manager.stage_num != 0:
                 if event.key == SDLK_DOWN:
-                    player.dir = 3
+                    player.move(3)
                 elif event.key == SDLK_UP:
-                    player.dir = 2
+                    player.move(2)
                 elif event.key == SDLK_LEFT:
-                    player.dir = 1
+                    player.move(1)
                 elif event.key == SDLK_RIGHT:
-                    player.dir = 0
+                    player.move(0)
+        elif event.type == SDL_KEYUP:
+            player.status=0
 
 def reset_world():
     global running
@@ -125,6 +141,6 @@ while running:
     handle_events()
     update_world()
     render_world()
-    delay(0.2)
+    delay(0.1)
 
 close_canvas()
