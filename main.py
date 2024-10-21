@@ -91,6 +91,19 @@ class Player:
         elif player.dir == 0:
             self.x+=7
 
+        self.collision_frame()
+
+    def collision_frame(self):
+        if self.x-48<=0 or self.x+48 >= monitor_width or self.y-48<=0 or self.y+48 >= monitor_height:
+            if player.dir == 3:
+                self.y += 7
+            elif player.dir == 2:
+                self.y -= 7
+            elif player.dir == 1:
+                self.x += 7
+            elif player.dir == 0:
+                self.x -= 7
+
 def handle_events():
     global running
 
