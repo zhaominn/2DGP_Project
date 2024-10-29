@@ -10,6 +10,15 @@ monitor_width = root.winfo_screenwidth()
 class Idle:
     @staticmethod
     def enter(player,e):
+        if player.action == 4 or player.action == 8:
+            player.dir, player.action = 0, 0
+        elif player.action == 5 or player.action == 9:
+            player.dir, player.action = 0, 1
+        elif player.action == 6 or player.action == 10:
+            player.dir, player.action = 0, 2
+        elif player.action == 7 or player.action == 11:
+            player.dir, player.action = 0, 3
+
         if left_up(e) or right_down(e):
             player.action = 1
             player.face_dir = -1
@@ -69,15 +78,14 @@ class Run:
 class Water:
     @staticmethod
     def enter(player, e):
-        if right_down(e) or right_up(e):
+        if player.action==4 or player.action==8:
             player.dir, player.action = 0, 0
-        elif left_down(e) or left_up(e):
+        elif player.action==5 or player.action==9:
             player.dir, player.action = 0, 1
-        elif up_down(e) or down_up(e):
+        elif player.action==6 or player.action==10:
             player.dir, player.action = 0, 2
-        elif down_down(e) or up_up(e):
+        elif player.action==7 or player.action==11:
             player.dir, player.action = 0, 3
-
         player.start_time = get_time()
 
     @staticmethod
@@ -100,7 +108,15 @@ class Water:
 class Mine:
     @staticmethod
     def enter(player, e):
-        pass
+        if player.action==0 or player.action==8:
+            player.dir, player.action = 0, 4
+        elif player.action==1 or player.action==9:
+            player.dir, player.action = 0, 5
+        elif player.action==2 or player.action==10:
+            player.dir, player.action = 0, 6
+        elif player.action==3 or player.action==11:
+            player.dir, player.action = 0, 7
+        player.start_time = get_time()
 
     @staticmethod
     def exit(player, e):
@@ -108,16 +124,29 @@ class Mine:
 
     @staticmethod
     def do(player):
-        pass
+        player.frame = (player.frame + 1) % 2
+        if get_time() - player.start_time > 2:
+            player.state_machine.add_event(('TIME_OUT', 0))
 
     @staticmethod
     def draw(player):
-        pass
+        player.action_image.clip_draw(
+            player.frame * 96, player.action * 96, 96, 96,
+            player.x, player.y, 200, 200
+        )
 
 class Crop:
     @staticmethod
     def enter(player, e):
-        pass
+        if player.action==0 or player.action==4:
+            player.dir, player.action = 0, 8
+        elif player.action==1 or player.action==5:
+            player.dir, player.action = 0, 9
+        elif player.action==2 or player.action==6:
+            player.dir, player.action = 0, 10
+        elif player.action==3 or player.action==7:
+            player.dir, player.action = 0, 11
+        player.start_time = get_time()
 
     @staticmethod
     def exit(player, e):
@@ -125,11 +154,16 @@ class Crop:
 
     @staticmethod
     def do(player):
-        pass
+        player.frame = (player.frame + 1) % 2
+        if get_time() - player.start_time > 2:
+            player.state_machine.add_event(('TIME_OUT', 0))
 
     @staticmethod
     def draw(player):
-        pass
+        player.action_image.clip_draw(
+            player.frame * 96, player.action * 96, 96, 96,
+            player.x, player.y, 200, 200
+        )
 
 class Player:
     def __init__(self):
@@ -152,8 +186,10 @@ class Player:
                       one_down: Water, one_up: Water, two_down: Mine, two_up: Mine, three_down: Crop, three_up: Crop},
                 Water:{left_up: Run, right_up: Run,up_up: Run, down_up: Run,
                         two_down: Mine, two_up: Mine, three_down: Crop, three_up: Crop, time_out : Idle},
-                Mine:{},
-                Crop: {}
+                Mine:{left_up: Run, right_up: Run, up_up: Run, down_up: Run,
+                        one_down: Water, one_up: Water, three_down: Crop, three_up: Crop, time_out : Idle},
+                Crop: {left_up: Run, right_up: Run,up_up: Run, down_up: Run,
+                        one_down: Water, one_up: Water, two_down: Mine, two_up: Mine, time_out : Idle}
             }
         )
 

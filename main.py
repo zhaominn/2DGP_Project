@@ -22,8 +22,6 @@ class Ground:
 
 class Tool:
     def __init__(self):
-        self.tool_num = 0 # 0 물뿌리개 1 곡괭이 2 괭이
-
         self.tool_image = load_image('image//ui//tool.png')
         #self.tool_frame_image = load_image('image//ui//tool_frame.png')
 
