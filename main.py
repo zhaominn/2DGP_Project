@@ -77,14 +77,12 @@ class Ui:
         self.tool_num = 0 # 0 물뿌리개 1 곡괭이 2 괭이
 
         self.tool_image = load_image('image//ui//tool.png')
-        self.tool_bar_image = load_image('image//ui//tool_bar.png')
         self.tool_frame_image = load_image('image//ui//tool_frame.png')
 
     def draw(self):
         if stage_manager.stage_num != 0:
-            self.tool_bar_image.clip_draw(0, 0, 1600, 112, monitor_width/2, 56)
-            self.tool_image.clip_draw(0, 0, 295, 102, 300, 51)
-            self.tool_frame_image.clip_draw(0, 0,102, 102, 204 + 96*self.tool_num, 51)
+            self.tool_image.clip_draw(0, 0, 326, 122, monitor_width/2, 70)
+            self.tool_frame_image.clip_draw(0, 0,102, 102, monitor_width/2-102 + 102*self.tool_num, 70)
 
     def update(self):
         pass
