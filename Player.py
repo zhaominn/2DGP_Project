@@ -1,6 +1,7 @@
 from pico2d import load_image
 import tkinter
-from StateMachine import StateMachine, space_down, right_down, left_down, left_up, right_up, start_event
+from StateMachine import StateMachine, space_down, right_down, left_down, left_up, right_up, start_event, up_down, \
+    down_up, down_down, up_up
 
 root = tkinter.Tk()
 monitor_height = root.winfo_screenheight()
@@ -41,6 +42,10 @@ class Run:
             player.dir, player.action = 1, 0
         elif left_down(e) or left_up(e):
             player.dir, player.action = -1, 1
+        elif up_down(e) or down_up(e):
+            player.dir, player.action = 1, 2
+        elif down_down(e) or up_up(e):
+            player.dir, player.action = -1, 3
 
     @staticmethod
     def exit(player,e):
@@ -48,7 +53,10 @@ class Run:
 
     @staticmethod
     def do(player):
-        player.x += player.dir*5
+        if player.action == 0 or player.action == 1:
+            player.x += player.dir * 10
+        elif player.action == 2 or player.action == 3:
+            player.y += player.dir * 10
         player.frame =(player.frame+1) % 4
 
     @staticmethod
@@ -72,8 +80,10 @@ class Player:
         self.state_machine.start(Idle)  # 초기 상태가 idle 로 설정
         self.state_machine.set_transitions(
             {  # dict 를 통해 표현
-                Idle: {right_down: Run, left_down: Run, left_up: Run, right_up: Run},
-                Run: {right_down: Idle, left_down: Idle, right_up: Idle, left_up: Idle},
+                Idle: {right_down: Run, left_down: Run, left_up: Run, right_up: Run,
+                       up_down: Run, down_down: Run, up_up: Run, down_up: Run},
+                Run: {right_down: Idle, left_down: Idle, right_up: Idle, left_up: Idle,
+                      up_down: Idle, down_down: Idle, up_up: Idle, down_up: Idle},
             }
         )
 
