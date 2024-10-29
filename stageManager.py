@@ -6,6 +6,10 @@ root = tkinter.Tk()
 monitor_height = root.winfo_screenheight()
 monitor_width = root.winfo_screenwidth()
 
+
+def get_stage_num(stage_manager):
+    return stage_manager.stage_num
+
 class StageManager:
     stage_num=None #0 시작 화면 1 기본 화면
     def __init__(self):
@@ -21,6 +25,8 @@ class StageManager:
         self.farm_image =load_image('image//stage1_main/farm.png')
         self.greenhouse_image = load_image('image//stage1_main//greenhouse.png')
         self.house_image = load_image('image//stage1_main//house.png')
+
+
 
     def draw(self):
         if self.stage_num == 0:
