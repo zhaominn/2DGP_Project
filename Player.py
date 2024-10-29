@@ -1,7 +1,7 @@
 from pico2d import load_image
 import tkinter
 from StateMachine import StateMachine, space_down, right_down, left_down, left_up, right_up, start_event, up_down, \
-    down_up, down_down, up_up
+    down_up, down_down, up_up, two_down, three_down, one_down, one_up, two_up, three_up
 
 root = tkinter.Tk()
 monitor_height = root.winfo_screenheight()
@@ -66,6 +66,56 @@ class Run:
             player.x, player.y, 200, 200
         )
 
+class Water:
+    @staticmethod
+    def enter(player, e):
+        pass
+
+    @staticmethod
+    def exit(player, e):
+        pass
+
+    @staticmethod
+    def do(player):
+        pass
+
+    @staticmethod
+    def draw(player):
+       pass
+
+class Mine:
+    @staticmethod
+    def enter(player, e):
+        pass
+
+    @staticmethod
+    def exit(player, e):
+        pass
+
+    @staticmethod
+    def do(player):
+        pass
+
+    @staticmethod
+    def draw(player):
+        pass
+
+class Crop:
+    @staticmethod
+    def enter(player, e):
+        pass
+
+    @staticmethod
+    def exit(player, e):
+        pass
+
+    @staticmethod
+    def do(player):
+        pass
+
+    @staticmethod
+    def draw(player):
+        pass
 
 class Player:
     def __init__(self):
@@ -81,9 +131,11 @@ class Player:
         self.state_machine.set_transitions(
             {  # dict 를 통해 표현
                 Idle: {right_down: Run, left_down: Run, left_up: Run, right_up: Run,
-                       up_down: Run, down_down: Run, up_up: Run, down_up: Run},
+                       up_down: Run, down_down: Run, up_up: Run, down_up: Run,
+                       one_down: Water, one_up: Water, two_down: Mine, two_up: Mine, three_down: Crop, three_up: Crop},
                 Run: {right_down: Idle, left_down: Idle, right_up: Idle, left_up: Idle,
-                      up_down: Idle, down_down: Idle, up_up: Idle, down_up: Idle},
+                      up_down: Idle, down_down: Idle, up_up: Idle, down_up: Idle,
+                      one_down: Water, one_up: Water, two_down: Mine, two_up: Mine, three_down: Crop, three_up: Crop},
             }
         )
 
