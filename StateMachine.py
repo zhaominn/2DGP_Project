@@ -8,8 +8,8 @@ def start_event(e):
 def space_down(e): #e가 space down 인지 판단 return true or false
      return e[0] == 'INPUT' and e[1].type == SDL_KEYDOWN and e[1].key == SDLK_SPACE
 
-#def time_out(e):
-#    return e[0]=='TIME_OUT'
+def time_out(e):
+    return e[0]=='TIME_OUT'
 
 def right_down(e):
     return e[0] =='INPUT' and e[1].type == SDL_KEYDOWN and e[1].key == SDLK_RIGHT

@@ -1,7 +1,7 @@
-from pico2d import load_image
+from pico2d import load_image, get_time
 import tkinter
 from StateMachine import StateMachine, space_down, right_down, left_down, left_up, right_up, start_event, up_down, \
-    down_up, down_down, up_up, two_down, three_down, one_down, one_up, two_up, three_up
+    down_up, down_down, up_up, two_down, three_down, one_down, one_up, two_up, three_up, time_out
 
 root = tkinter.Tk()
 monitor_height = root.winfo_screenheight()
@@ -69,7 +69,16 @@ class Run:
 class Water:
     @staticmethod
     def enter(player, e):
-        pass
+        if right_down(e) or right_up(e):
+            player.dir, player.action = 0, 0
+        elif left_down(e) or left_up(e):
+            player.dir, player.action = 0, 1
+        elif up_down(e) or down_up(e):
+            player.dir, player.action = 0, 2
+        elif down_down(e) or up_up(e):
+            player.dir, player.action = 0, 3
+
+        player.start_time = get_time()
 
     @staticmethod
     def exit(player, e):
@@ -77,11 +86,16 @@ class Water:
 
     @staticmethod
     def do(player):
-        pass
+        player.frame =(player.frame+1) % 2
+        if get_time() - player.start_time > 2:
+            player.state_machine.add_event(('TIME_OUT', 0))
 
     @staticmethod
     def draw(player):
-       pass
+        player.action_image.clip_draw(
+            player.frame * 96, player.action * 96, 96, 96,
+            player.x, player.y, 200, 200
+        )
 
 class Mine:
     @staticmethod
@@ -136,6 +150,10 @@ class Player:
                 Run: {right_down: Idle, left_down: Idle, right_up: Idle, left_up: Idle,
                       up_down: Idle, down_down: Idle, up_up: Idle, down_up: Idle,
                       one_down: Water, one_up: Water, two_down: Mine, two_up: Mine, three_down: Crop, three_up: Crop},
+                Water:{left_up: Run, right_up: Run,up_up: Run, down_up: Run,
+                        two_down: Mine, two_up: Mine, three_down: Crop, three_up: Crop, time_out : Idle},
+                Mine:{},
+                Crop: {}
             }
         )
 
