@@ -1,21 +1,27 @@
 from pico2d import *
 from Player import Player
-import tkinter
 
+class Crop_obj:
+    image=None;
+    def __init__(self):
+        #self.x,self.y=??
+        if self.image==None:
+            self.water = load_image('image//stage2.2_crop//water.png')
 
-root = tkinter.Tk()
+    def draw(self):
+        #self.water.clip_draw(0, 0, 53, 53, self.x,self.y)
+        pass
 
-monitor_height = root.winfo_screenheight()
-monitor_width = root.winfo_screenwidth()
+    def update(self):
+        pass
 
 class Ground:
     def __init__(self):
-        self.ground_image = load_image('image//stage1_main//spring_ground_all.png')
-        #self.tool_frame_image = load_image('image//ui//tool_frame.png')
+        #self.ground_image = load_image('image//stage1_main//spring_ground_all.png')
+        self.ground_image = load_image('image//stage2.2_crop//greenhouse.png')
 
     def draw(self):
-        self.ground_image.clip_draw(0, 0, 1600, 800, monitor_width/2, monitor_height/2,monitor_width, monitor_height)
-        #self.tool_frame_image.clip_draw(0, 0,102, 102, monitor_width/2-102 + 102*self.tool_num, 70)
+        self.ground_image.clip_draw(0, 0, 1600, 800, 1600/2, 800/2,1600, 800)
 
     def update(self):
         pass
@@ -26,7 +32,7 @@ class Tool:
         #self.tool_frame_image = load_image('image//ui//tool_frame.png')
 
     def draw(self):
-        self.tool_image.clip_draw(0, 0, 326, 122, monitor_width/2, 70)
+        self.tool_image.clip_draw(0, 0, 326, 122, 1600/2, 70)
         #self.tool_frame_image.clip_draw(0, 0,102, 102, monitor_width/2-102 + 102*self.tool_num, 70)
 
     def update(self):
@@ -72,7 +78,7 @@ def render_world():
         o.draw()
     update_canvas()
 
-open_canvas(monitor_width,monitor_height)
+open_canvas(1600,800)
 reset_world()
 
 while running:
