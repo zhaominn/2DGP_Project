@@ -3,6 +3,8 @@ import tkinter
 from StateMachine import StateMachine, space_down, right_down, left_down, left_up, right_up, start_event, up_down, \
     down_up, down_down, up_up, two_down, three_down, one_down, one_up, two_up, three_up, time_out
 
+from Crop import water_crop
+
 root = tkinter.Tk()
 monitor_height = root.winfo_screenheight()
 monitor_width = root.winfo_screenwidth()
@@ -47,13 +49,13 @@ class Idle:
 class Run:
     @staticmethod
     def enter(player,e):
-        if right_down(e) or right_up(e):
+        if right_down(e):
             player.dir, player.action = 1, 0
-        elif left_down(e) or left_up(e):
+        elif left_down(e):
             player.dir, player.action = -1, 1
-        elif up_down(e) or down_up(e):
+        elif up_down(e):
             player.dir, player.action = 1, 2
-        elif down_down(e) or up_up(e):
+        elif down_down(e):
             player.dir, player.action = -1, 3
 
     @staticmethod
@@ -79,13 +81,18 @@ class Water:
     @staticmethod
     def enter(player, e):
         if player.action==4 or player.action==8:
-            player.dir, player.action = 0, 0
+            player.action = 0
         elif player.action==5 or player.action==9:
-            player.dir, player.action = 0, 1
+            player.action = 1
         elif player.action==6 or player.action==10:
-            player.dir, player.action = 0, 2
+            player.action = 2
         elif player.action==7 or player.action==11:
-            player.dir, player.action = 0, 3
+            player.action = 3
+
+        if player.action==0 or player.action ==1: # 물 주기 상호작용
+            water_crop(player.x,player.y, player.crop_obj)
+        elif player.action==2 or player.action ==3:
+            water_crop(player.x,player.y, player.crop_obj)
         player.start_time = get_time()
 
     @staticmethod
@@ -95,7 +102,7 @@ class Water:
     @staticmethod
     def do(player):
         player.frame =(player.frame+1) % 2
-        if get_time() - player.start_time > 2:
+        if get_time() - player.start_time > 1:
             player.state_machine.add_event(('TIME_OUT', 0))
 
     @staticmethod
@@ -166,8 +173,9 @@ class Crop:
         )
 
 class Player:
-    def __init__(self):
-        # 0 idle 1 move 2 water 3 mine 4 crop
+    def __init__(self,crop_obj):
+        self.crop_obj = crop_obj
+
         self.x, self.y = monitor_width / 2, monitor_height / 2
         self.frame = 0
         self.dir = 0

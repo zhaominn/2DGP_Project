@@ -1,23 +1,12 @@
 from pico2d import *
+
+from Crop import CropObj
 from Player import Player
 
-class Crop_obj:
-    image=None;
-    def __init__(self):
-        #self.x,self.y=??
-        if self.image==None:
-            self.water = load_image('image//stage2.2_crop//water.png')
-
-    def draw(self):
-        #self.water.clip_draw(0, 0, 53, 53, self.x,self.y)
-        pass
-
-    def update(self):
-        pass
 
 class Ground:
     def __init__(self):
-        #self.ground_image = load_image('image//stage1_main//spring_ground_all.png')
+        #self.ground_image = load_image('image//stage1_main//spring_ground_all.png') # 기본 화면
         self.ground_image = load_image('image//stage2.2_crop//greenhouse.png')
 
     def draw(self):
@@ -55,6 +44,7 @@ def reset_world():
     global world
     global Ground
     global player
+    global crop_obj
     global tool
 
     running = True
@@ -62,7 +52,9 @@ def reset_world():
 
     ground = Ground()
     world.append(ground)
-    player = Player()
+    crop_obj = CropObj()
+    world.append(crop_obj)
+    player = Player(crop_obj)
     world.append(player)
     tool = Tool()
     world.append(tool)
