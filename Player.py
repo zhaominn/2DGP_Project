@@ -204,12 +204,6 @@ class Player:
             }
         )
 
-    #def draw(self):
-    #    if self.status == 0 or self.status==1:
-    #        self.basic_image.clip_draw(96 * self.frame, 96 * self.dir, 96, 96, self.x, self.y,200,200)
-    #    elif self.status >= 2 and self.status <= 4:
-    #        self.action_image.clip_draw(96 * self.frame, 384 * (self.status-2) + 96 * self.dir, 96, 96, self.x, self.y, 200, 200)
-
     def update(self):
         self.state_machine.update()
 
@@ -221,3 +215,6 @@ class Player:
 
     def draw(self):
         self.state_machine.draw()
+
+    def get_point(self):
+        return self.x,self.y
