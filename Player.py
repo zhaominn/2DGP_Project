@@ -32,6 +32,7 @@ class Idle:
 
         player.dir = 0 # 정지 상태
         player.frame = 0
+        player.frame_time = get_time()
         pass
 
     @staticmethod
@@ -40,7 +41,9 @@ class Idle:
 
     @staticmethod
     def do(player):
-        player.frame = (player.frame + 1) % 2
+        if get_time() - player.frame_time >= 0.1:
+            player.frame = (player.frame + 1) % 2
+            player.frame_time = get_time()
 
     @staticmethod
     def draw(player):
@@ -65,9 +68,9 @@ class Run:
     @staticmethod
     def do(player):
         if player.action == 0 or player.action == 1:
-            player.x += player.dir * 10
+            player.x += player.dir
         elif player.action == 2 or player.action == 3:
-            player.y += player.dir * 10
+            player.y += player.dir
         player.frame =(player.frame+1) % 4
 
     @staticmethod

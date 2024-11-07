@@ -1,6 +1,6 @@
-world=[[],[],[]]
+world = [[] for _ in range(4)]
 
-def add_object(o, depth):
+def add_object(o, depth = 0):
     world[depth].append(o)
 
 def update():
@@ -13,10 +13,15 @@ def render():
         for o in layer:
             o.draw()
 
-
 def remove_object(o):
     for layer in world:
         if o in layer:
             layer.remove(o)
             return
-    print('에러: 존재하지 않은 객체를 지운다고?')
+
+    raise ValueError('Cannot delete non existing object')
+
+def clear():
+    global world
+    for layer in world:
+        layer.clear()
