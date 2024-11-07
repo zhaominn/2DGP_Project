@@ -1,8 +1,8 @@
 from pico2d import *
 
+import game_world
 from Crop import CropObj
 from Player import Player
-
 
 class Ground:
     def __init__(self):
@@ -35,8 +35,7 @@ def handle_events():
             running = False
         elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
             running = False
-        else:
-            if event.type in (SDL_KEYDOWN, SDL_KEYUP):
+        elif event.type in (SDL_KEYDOWN, SDL_KEYUP):
                 player.handle_events(event)
 
 def reset_world():
@@ -48,35 +47,31 @@ def reset_world():
     global tool
 
     running = True
-    world = []
 
     ground = Ground()
-    world.append(ground)
+    game_world.add_object(ground,0)
     crop_obj = CropObj()
-    world.append(crop_obj)
+    game_world.add_object(crop_obj,1)
     player = Player(crop_obj)
-    world.append(player)
+    game_world.add_object(player, 2)
     tool = Tool()
-    world.append(tool)
+    game_world.add_object(tool, 2)
 
 def update_world():
-    for o in world:
-        o.update()
-    pass
+    game_world.update()
 
 def render_world():
     clear_canvas()
-    for o in world:
-        o.draw()
+    game_world.render()
     update_canvas()
 
 open_canvas(1600,800)
 reset_world()
-
+# game loop
 while running:
     handle_events()
     update_world()
     render_world()
-    delay(0.05)
-
+    delay(0.03)
+# finalization code
 close_canvas()
