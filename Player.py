@@ -1,4 +1,4 @@
-from pico2d import load_image, get_time
+from pico2d import load_image, get_time, draw_rectangle
 import tkinter
 
 from StateMachine import *
@@ -227,6 +227,7 @@ class Player:
 
     def draw(self):
         self.state_machine.draw()
+        draw_rectangle(*self.get_bb())
 
-    def get_point(self):
-        return self.x,self.y
+    def get_bb(self):
+        return self.x - 30, self.y - 30, self.x + 30, self.y + 30

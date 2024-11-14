@@ -9,13 +9,13 @@ from tool import Tool
 from main_ground import MainGround
 
 def handle_events():
-    playerX, playerY= player.get_point()
+    #playerX, playerY= player.get_point()
     events = get_events()
     for event in events:
         if event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
             game_framework.quit()
-        elif playerX >= 1200 and playerX <= 1400 and playerY >= 350 and playerY <= 450 and event.type == SDL_KEYDOWN and event.key == SDLK_SPACE:
-            game_framework.change_mode(crop_mode)
+        #elif playerX >= 1200 and playerX <= 1400 and playerY >= 350 and playerY <= 450 and event.type == SDL_KEYDOWN and event.key == SDLK_SPACE:
+        #    game_framework.change_mode(crop_mode)
         elif event.type in (SDL_KEYDOWN, SDL_KEYUP):
                 player.handle_events(event)
 
@@ -43,6 +43,8 @@ def finish():
 
 def update():
     game_world.update()
+    if game_world.collide(player.get_bb(), mainGround.get_bb()):
+        print('COLLISION player:mainGround')
 
 def draw():
     clear_canvas()
