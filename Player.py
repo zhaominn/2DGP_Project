@@ -1,13 +1,24 @@
 from pico2d import load_image, get_time
 import tkinter
-from StateMachine import StateMachine, right_down, left_down, left_up, right_up, start_event, up_down, \
-    down_up, down_down, up_up, two_down, three_down, one_down, one_up, two_up, three_up, time_out
 
+from StateMachine import *
 from Crop import water_crop
+import game_framework
 
 root = tkinter.Tk()
 monitor_height = root.winfo_screenheight()
 monitor_width = root.winfo_screenwidth()
+
+# Player Run Speed
+PIXEL_PER_METER = (10.0 / 0.3) # 10 pixel 30 cm
+RUN_SPEED_KMPH = 20.0 # Km / Hour
+RUN_SPEED_MPM = (RUN_SPEED_KMPH * 1000.0 / 60.0)
+RUN_SPEED_MPS = (RUN_SPEED_MPM / 60.0)
+RUN_SPEED_PPS = (RUN_SPEED_MPS * PIXEL_PER_METER)
+
+# Player Action Speed
+TIME_PER_ACTION = 0.4  # 행동 하나에 걸리는 시간(초)
+ACTION_PER_TIME = 1.0 / TIME_PER_ACTION  # 초당 행동 횟수
 
 class Idle:
     @staticmethod
@@ -41,13 +52,11 @@ class Idle:
 
     @staticmethod
     def do(player):
-        if get_time() - player.frame_time >= 0.1:
-            player.frame = (player.frame + 1) % 2
-            player.frame_time = get_time()
+        player.frame =(player.frame +2* ACTION_PER_TIME * game_framework.frame_time) % 2
 
     @staticmethod
     def draw(player):
-        player.basic_image.clip_draw(player.frame * 96, player.action * 96, 96, 96, player.x, player.y,200,200)
+        player.basic_image.clip_draw(int(player.frame) * 96, player.action * 96, 96, 96, player.x, player.y,200,200)
 
 class Run:
     @staticmethod
@@ -68,15 +77,15 @@ class Run:
     @staticmethod
     def do(player):
         if player.action == 0 or player.action == 1:
-            player.x += player.dir
+            player.x += player.dir * RUN_SPEED_PPS * game_framework.frame_time
         elif player.action == 2 or player.action == 3:
-            player.y += player.dir
-        player.frame =(player.frame+1) % 4
+            player.y+= player.dir * RUN_SPEED_PPS * game_framework.frame_time
+        player.frame =(player.frame+4 * ACTION_PER_TIME * game_framework.frame_time) % 4
 
     @staticmethod
     def draw(player):
         player.basic_image.clip_draw(
-            player.frame * 96, player.action * 96, 96, 96,
+            int(player.frame) * 96, player.action * 96, 96, 96,
             player.x, player.y, 200, 200
         )
 
@@ -104,14 +113,14 @@ class Water:
 
     @staticmethod
     def do(player):
-        player.frame =(player.frame+1) % 2
+        player.frame =(player.frame+2 * ACTION_PER_TIME * game_framework.frame_time) % 2
         if get_time() - player.start_time > 1:
             player.state_machine.add_event(('TIME_OUT', 0))
 
     @staticmethod
     def draw(player):
         player.action_image.clip_draw(
-            player.frame * 96, player.action * 96, 96, 96,
+            int(player.frame) * 96, player.action * 96, 96, 96,
             player.x, player.y, 200, 200
         )
 
@@ -134,14 +143,14 @@ class Mine:
 
     @staticmethod
     def do(player):
-        player.frame = (player.frame + 1) % 2
-        if get_time() - player.start_time > 2:
+        player.frame =(player.frame+2 * ACTION_PER_TIME * game_framework.frame_time) % 2
+        if get_time() - player.start_time > 1:
             player.state_machine.add_event(('TIME_OUT', 0))
 
     @staticmethod
     def draw(player):
         player.action_image.clip_draw(
-            player.frame * 96, player.action * 96, 96, 96,
+            int(player.frame) * 96, player.action * 96, 96, 96,
             player.x, player.y, 200, 200
         )
 
@@ -164,14 +173,14 @@ class Crop:
 
     @staticmethod
     def do(player):
-        player.frame = (player.frame + 1) % 2
+        player.frame =(player.frame+2 * ACTION_PER_TIME * game_framework.frame_time) % 2
         if get_time() - player.start_time > 1:
             player.state_machine.add_event(('TIME_OUT', 0))
 
     @staticmethod
     def draw(player):
         player.action_image.clip_draw(
-            player.frame * 96, player.action * 96, 96, 96,
+            int(player.frame) * 96, player.action * 96, 96, 96,
             player.x, player.y, 200, 200
         )
 
@@ -195,11 +204,14 @@ class Player:
                 Run: {right_down: Idle, left_down: Idle, right_up: Idle, left_up: Idle,
                       up_down: Idle, down_down: Idle, up_up: Idle, down_up: Idle,
                       one_down: Water, one_up: Water, two_down: Mine, two_up: Mine, three_down: Crop, three_up: Crop},
-                Water:{left_up: Run, right_up: Run,up_up: Run, down_up: Run,
+                Water:{right_down: Run, left_down: Run,up_down: Run, down_down: Run,
+                       left_up: Run, right_up: Run,up_up: Run, down_up: Run,
                         two_down: Mine, two_up: Mine, three_down: Crop, three_up: Crop, time_out : Idle},
-                Mine:{left_up: Run, right_up: Run, up_up: Run, down_up: Run,
+                Mine:{right_down: Run, left_down: Run,up_down: Run, down_down: Run,
+                      left_up: Run, right_up: Run, up_up: Run, down_up: Run,
                         one_down: Water, one_up: Water, three_down: Crop, three_up: Crop, time_out : Idle},
-                Crop: {left_up: Run, right_up: Run,up_up: Run, down_up: Run,
+                Crop: {right_down: Run, left_down: Run,up_down: Run, down_down: Run,
+                       left_up: Run, right_up: Run,up_up: Run, down_up: Run,
                         one_down: Water, one_up: Water, two_down: Mine, two_up: Mine, time_out : Idle}
             }
         )
