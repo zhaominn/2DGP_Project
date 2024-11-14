@@ -32,7 +32,7 @@ def init():
     game_world.add_object(mainGround, 0)
     crop_obj = CropObj()
     game_world.add_object(crop_obj, 1)
-    player = Player(crop_obj)
+    player = Player()
     game_world.add_object(player, 2)
     tool = Tool()
     game_world.add_object(tool, 2)
@@ -44,7 +44,7 @@ def finish():
 
 def update():
     game_world.update()
-    if game_world.collide(player.get_bb(), mainGround.get_bb()):
+    if game_world.collide_bb(player.get_bb(), mainGround.get_bb()):
         print('COLLISION player:mainGround')
 
 def draw():
