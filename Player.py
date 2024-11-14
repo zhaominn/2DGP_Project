@@ -101,7 +101,7 @@ class Water:
         elif player.action==7 or player.action==11:
             player.action = 3
 
-        water_crop(player.x,player.y, player.crop_obj)
+        water_crop(player.x,player.y, player.cropObj)
         player.start_time = get_time()
 
     @staticmethod
@@ -133,7 +133,7 @@ class Crop:
         elif player.action==3 or player.action==7:
             player.action = 11
 
-        crop_crop(player.x,player.y, player.crop_obj)
+        crop_crop(player.x, player.y, player.cropObj)
         player.start_time = get_time()
 
     @staticmethod
@@ -165,7 +165,7 @@ class Seed:
         elif player.action == 7 or player.action == 11:
             player.dir, player.action = 0, 3
 
-        seed_crop(player.x,player.y, player.crop_obj)
+        seed_crop(player.x,player.y, player.cropObj)
         player.dir = 0  # 정지 상태
         player.frame = 0
         player.frame_time = get_time()
@@ -214,7 +214,8 @@ class Mine:
         )
 
 class Player:
-    def __init__(self):
+    def __init__(self,cropObj=None):
+        self.cropObj =cropObj
         self.x, self.y = monitor_width / 2, monitor_height / 2
         self.frame = 0
         self.dir = 0

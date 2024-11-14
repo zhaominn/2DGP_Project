@@ -3,10 +3,9 @@ from pico2d import *
 import game_framework
 import game_world
 import play_mode
-from Crop import CropObj
 from Player import Player
 from tool import Tool
-from crop_ground import CropGround
+from coop_ground import CoopGround
 
 
 def handle_events():
@@ -21,17 +20,17 @@ def handle_events():
 
 def init():
     global world
-    global cropGround
+    global coopGround
     global player
-    global crop_obj
+    global animals
     global tool
 
 
-    cropGround = CropGround()
-    game_world.add_object(cropGround, 0)
-    crop_obj = CropObj()
-    game_world.add_object(crop_obj, 1)
-    player = Player(crop_obj)
+    coopGround = CoopGround()
+    game_world.add_object(coopGround, 0)
+    #animals =
+    #game_world.add_object(crop_obj, 1)
+    player = Player()
     game_world.add_object(player, 2)
     tool = Tool()
     game_world.add_object(tool, 2)

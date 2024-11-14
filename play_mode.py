@@ -1,9 +1,11 @@
 from pico2d import *
 
+import coop_mode
 import crop_mode
 import game_framework
 import game_world
 import main_ground
+import mine_mode
 from Crop import CropObj
 from Player import Player
 from tool import Tool
@@ -15,8 +17,12 @@ def handle_events():
     for event in events:
         if event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
             game_framework.quit()
-        elif game_world.collide(player.get_bb(), mainGround.get_crop_bb()) and event.type == SDL_KEYDOWN and event.key == SDLK_SPACE:
+        elif game_world.collide_bb(player.get_bb(), mainGround.get_crop_bb()) and event.type == SDL_KEYDOWN and event.key == SDLK_SPACE:
             game_framework.change_mode(crop_mode)
+        elif game_world.collide_bb(player.get_bb(), mainGround.get_mine_bb()) and event.type == SDL_KEYDOWN and event.key == SDLK_SPACE:
+            game_framework.change_mode(mine_mode)
+        elif game_world.collide_bb(player.get_bb(), mainGround.get_coop_bb()) and event.type == SDL_KEYDOWN and event.key == SDLK_SPACE:
+            game_framework.change_mode(coop_mode)
         elif event.type in (SDL_KEYDOWN, SDL_KEYUP):
                 player.handle_events(event)
 
@@ -44,8 +50,6 @@ def finish():
 
 def update():
     game_world.update()
-    if game_world.collide_bb(player.get_bb(), mainGround.get_bb()):
-        print('COLLISION player:mainGround')
 
 def draw():
     clear_canvas()
