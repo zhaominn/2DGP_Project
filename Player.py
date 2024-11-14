@@ -2,7 +2,7 @@ from pico2d import load_image, get_time, draw_rectangle
 import tkinter
 
 from StateMachine import *
-from Crop import water_crop, crop_crop
+from Crop import water_crop, crop_crop, seed_crop
 import game_framework
 
 root = tkinter.Tk()
@@ -101,40 +101,7 @@ class Water:
         elif player.action==7 or player.action==11:
             player.action = 3
 
-        if player.action==0 or player.action ==1: # 물 주기 상호작용
-            water_crop(player.x,player.y, player.crop_obj)
-        elif player.action==2 or player.action ==3:
-            water_crop(player.x,player.y, player.crop_obj)
-        player.start_time = get_time()
-
-    @staticmethod
-    def exit(player, e):
-        pass
-
-    @staticmethod
-    def do(player):
-        player.frame =(player.frame+2 * ACTION_PER_TIME * game_framework.frame_time) % 2
-        if get_time() - player.start_time > 1:
-            player.state_machine.add_event(('TIME_OUT', 0))
-
-    @staticmethod
-    def draw(player):
-        player.action_image.clip_draw(
-            int(player.frame) * 96, player.action * 96, 96, 96,
-            player.x, player.y, 200, 200
-        )
-
-class Mine:
-    @staticmethod
-    def enter(player, e):
-        if player.action==0 or player.action==8:
-            player.dir, player.action = 0, 4
-        elif player.action==1 or player.action==9:
-            player.dir, player.action = 0, 5
-        elif player.action==2 or player.action==10:
-            player.dir, player.action = 0, 6
-        elif player.action==3 or player.action==11:
-            player.dir, player.action = 0, 7
+        water_crop(player.x,player.y, player.crop_obj)
         player.start_time = get_time()
 
     @staticmethod
@@ -166,10 +133,66 @@ class Crop:
         elif player.action==3 or player.action==7:
             player.action = 11
 
-        if player.action==8 or player.action ==9: # 괭이 상호작용
-            crop_crop(player.x,player.y, player.crop_obj)
-        elif player.action==10 or player.action ==11:
-            crop_crop(player.x,player.y, player.crop_obj)
+        crop_crop(player.x,player.y, player.crop_obj)
+        player.start_time = get_time()
+
+    @staticmethod
+    def exit(player, e):
+        pass
+
+    @staticmethod
+    def do(player):
+        player.frame =(player.frame+2 * ACTION_PER_TIME * game_framework.frame_time) % 2
+        if get_time() - player.start_time > 1:
+            player.state_machine.add_event(('TIME_OUT', 0))
+
+    @staticmethod
+    def draw(player):
+        player.action_image.clip_draw(
+            int(player.frame) * 96, player.action * 96, 96, 96,
+            player.x, player.y, 200, 200
+        )
+
+class Seed:
+    @staticmethod
+    def enter(player, e):
+        if player.action == 4 or player.action == 8:
+            player.dir, player.action = 0, 0
+        elif player.action == 5 or player.action == 9:
+            player.dir, player.action = 0, 1
+        elif player.action == 6 or player.action == 10:
+            player.dir, player.action = 0, 2
+        elif player.action == 7 or player.action == 11:
+            player.dir, player.action = 0, 3
+
+        seed_crop(player.x,player.y, player.crop_obj)
+        player.dir = 0  # 정지 상태
+        player.frame = 0
+        player.frame_time = get_time()
+
+    @staticmethod
+    def exit(player, e):
+        pass
+
+    @staticmethod
+    def do(player):
+        player.frame = (player.frame + 2 * ACTION_PER_TIME * game_framework.frame_time) % 2
+
+    @staticmethod
+    def draw(player):
+        player.basic_image.clip_draw(int(player.frame) * 96, player.action * 96, 96, 96, player.x, player.y, 200, 200)
+
+class Mine:
+    @staticmethod
+    def enter(player, e):
+        if player.action==0 or player.action==8:
+            player.dir, player.action = 0, 4
+        elif player.action==1 or player.action==9:
+            player.dir, player.action = 0, 5
+        elif player.action==2 or player.action==10:
+            player.dir, player.action = 0, 6
+        elif player.action==3 or player.action==11:
+            player.dir, player.action = 0, 7
         player.start_time = get_time()
 
     @staticmethod
@@ -205,19 +228,28 @@ class Player:
             {  # dict 를 통해 표현
                 Idle: {right_down: Run, left_down: Run, left_up: Run, right_up: Run,
                        up_down: Run, down_down: Run, up_up: Run, down_up: Run,
-                       one_down: Water, one_up: Water, two_down: Mine, two_up: Mine, three_down: Crop, three_up: Crop},
+                       one_down: Mine, one_up: Mine, two_down: Crop, two_up: Crop,
+                       three_down: Water, three_up: Water,four_down:Seed,four_up:Seed},
                 Run: {right_down: Idle, left_down: Idle, right_up: Idle, left_up: Idle,
                       up_down: Idle, down_down: Idle, up_up: Idle, down_up: Idle,
-                      one_down: Water, one_up: Water, two_down: Mine, two_up: Mine, three_down: Crop, three_up: Crop},
-                Water:{right_down: Run, left_down: Run,up_down: Run, down_down: Run,
-                       left_up: Run, right_up: Run,up_up: Run, down_up: Run,
-                        two_down: Mine, two_up: Mine, three_down: Crop, three_up: Crop, time_out : Idle},
+                      one_down: Mine, one_up: Mine, two_down: Crop, two_up: Crop,
+                      three_down: Water, three_up: Water,four_down:Seed,four_up:Seed},
                 Mine:{right_down: Run, left_down: Run,up_down: Run, down_down: Run,
-                      left_up: Run, right_up: Run, up_up: Run, down_up: Run,
-                        one_down: Water, one_up: Water, three_down: Crop, three_up: Crop, time_out : Idle},
-                Crop: {right_down: Run, left_down: Run,up_down: Run, down_down: Run,
                        left_up: Run, right_up: Run,up_up: Run, down_up: Run,
-                        one_down: Water, one_up: Water, two_down: Mine, two_up: Mine, time_out : Idle}
+                        two_down: Crop, two_up: Crop, three_down: Water,three_up: Water,
+                        time_out : Idle,four_down:Seed,four_up:Seed},
+                Crop:{right_down: Run, left_down: Run,up_down: Run, down_down: Run,
+                      left_up: Run, right_up: Run, up_up: Run, down_up: Run,
+                        one_down: Mine, one_up: Mine, three_down: Water, three_up: Water,
+                      four_down:Seed,four_up:Seed,time_out : Idle},
+                Water: {right_down: Run, left_down: Run,up_down: Run, down_down: Run,
+                       left_up: Run, right_up: Run,up_up: Run, down_up: Run,
+                        one_down: Mine, one_up: Mine, two_down: Crop, two_up: Crop,
+                       four_down:Seed,four_up:Seed,time_out : Idle},
+                Seed: {right_down: Run, left_down: Run,up_down: Run, down_down: Run,
+                       left_up: Run, right_up: Run,up_up: Run, down_up: Run,
+                        one_down: Mine, one_up: Mine, two_down: Crop, two_up: Crop,
+                    three_down: Water, three_up: Water, time_out : Idle}
             }
         )
 

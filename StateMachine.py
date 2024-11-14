@@ -1,5 +1,4 @@
-from sdl2 import SDL_KEYDOWN, SDLK_SPACE, SDLK_RIGHT, SDLK_LEFT, SDL_KEYUP, SDLK_a, SDLK_UP, SDLK_DOWN, SDLK_1, SDLK_2, \
-    SDLK_3
+from sdl2 import *
 
 
 def start_event(e):
@@ -52,6 +51,12 @@ def three_down(e):
 
 def three_up(e):
     return e[0] =='INPUT' and e[1].type == SDL_KEYUP and e[1].key==SDLK_3
+
+def four_down(e):
+    return e[0] =='INPUT' and e[1].type == SDL_KEYDOWN and e[1].key==SDLK_4
+
+def four_up(e):
+    return e[0] =='INPUT' and e[1].type == SDL_KEYUP and e[1].key==SDLK_4
 
 class StateMachine:
     def __init__(self, obj):
