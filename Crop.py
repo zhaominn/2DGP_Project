@@ -1,7 +1,11 @@
 from pico2d import load_image
 
+import crop_mode
+import game_framework
+
 def water_crop(x, y, crop_obj):
-    crop_obj.set_position(x,y)
+    if game_framework.get_mode()==crop_mode:
+        crop_obj.set_position(x,y)
 
 
 class CropObj:

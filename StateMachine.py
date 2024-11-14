@@ -89,3 +89,7 @@ class StateMachine:
     def set_transitions(self, transitions):
         self.transitions = transitions
         pass
+
+    def get_state(self):
+        return self.cur_state
+

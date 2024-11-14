@@ -1,6 +1,6 @@
 from pico2d import load_image, get_time
 import tkinter
-from StateMachine import StateMachine, space_down, right_down, left_down, left_up, right_up, start_event, up_down, \
+from StateMachine import StateMachine, right_down, left_down, left_up, right_up, start_event, up_down, \
     down_up, down_down, up_up, two_down, three_down, one_down, one_up, two_up, three_up, time_out
 
 from Crop import water_crop
@@ -165,7 +165,7 @@ class Crop:
     @staticmethod
     def do(player):
         player.frame = (player.frame + 1) % 2
-        if get_time() - player.start_time > 2:
+        if get_time() - player.start_time > 1:
             player.state_machine.add_event(('TIME_OUT', 0))
 
     @staticmethod

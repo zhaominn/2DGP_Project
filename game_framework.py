@@ -57,3 +57,9 @@ def run(start_mode):
         stack.pop()
 
     delay(0.03)
+
+def get_mode():
+    global stack
+    if len(stack) > 0:
+        return stack[-1]
+    return None
