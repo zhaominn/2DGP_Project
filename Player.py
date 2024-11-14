@@ -213,9 +213,7 @@ class Mine:
         )
 
 class Player:
-    def __init__(self,crop_obj):
-        self.crop_obj = crop_obj
-
+    def __init__(self):
         self.x, self.y = monitor_width / 2, monitor_height / 2
         self.frame = 0
         self.dir = 0
