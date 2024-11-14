@@ -2,7 +2,7 @@ from pico2d import load_image, get_time, draw_rectangle
 import tkinter
 
 from StateMachine import *
-from Crop import water_crop
+from Crop import water_crop, crop_crop
 import game_framework
 
 root = tkinter.Tk()
@@ -158,13 +158,18 @@ class Crop:
     @staticmethod
     def enter(player, e):
         if player.action==0 or player.action==4:
-            player.dir, player.action = 0, 8
+            player.action = 8
         elif player.action==1 or player.action==5:
-            player.dir, player.action = 0, 9
+            player.action = 9
         elif player.action==2 or player.action==6:
-            player.dir, player.action = 0, 10
+            player.action = 10
         elif player.action==3 or player.action==7:
-            player.dir, player.action = 0, 11
+            player.action = 11
+
+        if player.action==8 or player.action ==9: # 괭이 상호작용
+            crop_crop(player.x,player.y, player.crop_obj)
+        elif player.action==10 or player.action ==11:
+            crop_crop(player.x,player.y, player.crop_obj)
         player.start_time = get_time()
 
     @staticmethod
