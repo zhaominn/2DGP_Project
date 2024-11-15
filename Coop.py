@@ -1,12 +1,12 @@
 import random
 
-from pico2d import load_image, get_time
+from pico2d import load_image, get_time, draw_rectangle
 
 import coop_mode
 import game_framework
 
 # Animal Run Speed
-PIXEL_PER_METER = (10.0 / 0.3) # 10 pixel 30 cm
+PIXEL_PER_METER = (10.0 / 1) # 10 pixel 30 cm
 RUN_SPEED_KMPH = 20.0 # Km / Hour
 RUN_SPEED_MPM = (RUN_SPEED_KMPH * 1000.0 / 60.0)
 RUN_SPEED_MPS = (RUN_SPEED_MPM / 60.0)
@@ -68,14 +68,35 @@ class Cow:
                     int(self.frame) * self.block_height, 3 * self.block_height, self.block_width, self.block_height,
                     self.x, self.y, 100, 100
                 )
+        draw_rectangle(*self.get_bb())
 
     def update(self):
         if self.action==0 and self.frame>=3:
             pass
         else:
             self.frame = (self.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 4
-
+            if self.action==1: # 위아래
+                if self.dir==0: #+
+                    if self.y>=70:
+                        self.y += -1 * RUN_SPEED_PPS * game_framework.frame_time
+                    else: self.dir=1
+                elif self.dir==1: #-
+                    if self.y<=700:
+                        self.y += self.dir * RUN_SPEED_PPS * game_framework.frame_time
+                    else: self.dir=0
+            elif self.action == 2:
+                if self.dir==0: #+
+                    if self.x>=70:
+                        self.x += -1 * RUN_SPEED_PPS * game_framework.frame_time
+                    else: self.dir=1
+                elif self.dir==1: #-
+                    if self.x<=1530:
+                        self.x += self.dir * RUN_SPEED_PPS * game_framework.frame_time
+                    else: self.dir=0
 
         if get_time() - self.start_time > self.cycle_num:
             update_animals_positions(self)
         pass
+
+    def get_bb(self):
+        return self.x - 40, self.y - 50, self.x + 40, self.y + 30
