@@ -6,7 +6,6 @@ def water_crop(x, y, cropObj): # 물주기
     if game_framework.get_mode()=='crop_mode':
         cropObj.set_water_position(x, y)
 
-    if game_framework.get_mode()==crop_mode:
 def crop_crop(x, y, cropObj): # 괭이
     if game_framework.get_mode() == 'crop_mode':
         cropObj.set_crop_position(x, y)
