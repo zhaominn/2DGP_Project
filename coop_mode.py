@@ -4,7 +4,7 @@ import game_framework
 import game_world
 import play_mode
 from Player import Player
-from Coop import Cow #, Sheep, Pig
+from Coop import Cow, Sheep, Pig
 from tool import Tool
 from coop_ground import CoopGround
 
@@ -31,12 +31,12 @@ def init():
 
     coopGround = CoopGround()
     game_world.add_object(coopGround, 0)
-    cows =[Cow() for _ in range(3)]
+    cows =[Cow() for _ in range(4)]
     game_world.add_objects(cows, 1)
-    #sheeps = [Sheep() for _ in range(3)]
-    #game_world.add_objects(sheeps, 1)
-    #pigs = [Pig() for _ in range(3)]
-    #game_world.add_objects(pigs, 1)
+    sheeps = [Sheep() for _ in range(4)]
+    game_world.add_objects(sheeps, 1)
+    pigs = [Pig() for _ in range(4)]
+    game_world.add_objects(pigs, 1)
     player = Player()
     game_world.add_object(player, 2)
     tool = Tool()
