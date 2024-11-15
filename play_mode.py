@@ -4,9 +4,7 @@ import coop_mode
 import crop_mode
 import game_framework
 import game_world
-import main_ground
 import mine_mode
-from Crop import CropObj
 from Player import Player
 from tool import Tool
 from main_ground import MainGround
@@ -30,14 +28,11 @@ def init():
     global world
     global mainGround
     global player
-    global crop_obj
     global tool
 
 
     mainGround = MainGround()
     game_world.add_object(mainGround, 0)
-    crop_obj = CropObj()
-    game_world.add_object(crop_obj, 1)
     player = Player()
     game_world.add_object(player, 2)
     tool = Tool()

@@ -165,6 +165,7 @@ class Seed:
         elif player.action == 7 or player.action == 11:
             player.dir, player.action = 0, 3
 
+
         seed_crop(player.x,player.y, player.cropObj)
         player.dir = 0  # 정지 상태
         player.frame = 0

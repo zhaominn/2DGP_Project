@@ -1,18 +1,18 @@
 from pico2d import load_image
 
-import crop_mode
 import game_framework
 
-def water_crop(x, y,cropObj): # 물주기
-    if game_framework.get_mode()==crop_mode:
+def water_crop(x, y, cropObj): # 물주기
+    if game_framework.get_mode()=='crop_mode':
         cropObj.set_water_position(x, y)
 
-def crop_crop(x, y,cropObj): # 괭이
     if game_framework.get_mode()==crop_mode:
+def crop_crop(x, y, cropObj): # 괭이
+    if game_framework.get_mode() == 'crop_mode':
         cropObj.set_crop_position(x, y)
 
-def seed_crop(x, y,cropObj): # 괭이
-    if game_framework.get_mode()==crop_mode:
+def seed_crop(x, y, cropObj): # 괭이
+    if game_framework.get_mode() == 'crop_mode':
         cropObj.set_seed_position(x, y)
 
 class CropObj:
