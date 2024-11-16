@@ -237,6 +237,8 @@ class Feed:
     @staticmethod
     def do(player):
         player.frame = (player.frame + 2 * ACTION_PER_TIME * game_framework.frame_time) % 2
+        if get_time() - player.start_time > 1:
+            player.state_machine.add_event(('TIME_OUT', 0))
 
     @staticmethod
     def draw(player):
