@@ -3,8 +3,6 @@ import random
 from pico2d import load_image, draw_rectangle
 
 import game_world
-import mine_mode
-import game_framework
 
 
 class Stone:
@@ -35,7 +33,7 @@ class Stone:
         return self.x - 25, self.y - 25, self.x + 25, self.y + 25
 
 
-    def handle_collision(self, group, other):
+    def handle_collision(self, group):
         if group == 'player:stones':
             if self.attackedNum < 1:
                 self.attackedNum = 1

@@ -270,5 +270,5 @@ class Player:
     def get_bb(self):
         return self.x - 30, self.y - 30, self.x + 30, self.y + 30
 
-    def handle_collision(self, group, other):
+    def handle_collision(self, group):
         pass

@@ -66,7 +66,7 @@ class StateMachine:
     def start(self, state):
         self.cur_state = state
         self.cur_state.enter(self.obj,('START', 0)) # 가상 이벤트 ㅋㅋ
-        print(f'Enter into {state}')
+        #print(f'Enter into {state}')
 
     def update(self):
         self.cur_state.do(self.obj)
@@ -74,14 +74,14 @@ class StateMachine:
             e = self.event_q.pop(0)
             for check_event, next_state in self.transitions[self.cur_state].items():
                 if check_event(e):
-                    print(f'Exit from {self.cur_state}')
+                    #rint(f'Exit from {self.cur_state}')
                     self.cur_state.exit(self.obj, e)
                     self.cur_state = next_state
                     print(f'Enter into {next_state}')
                     self.cur_state.enter(self.obj, e)
                     return
             # 이 시점으로 왔다는 것은, event 에 따른 전환 못함.
-            print(f'        WARNING: {e} not handled at state {self.cur_state}')
+            #print(f'        WARNING: {e} not handled at state {self.cur_state}')
 
     def draw(self):
         self.cur_state.draw(self.obj)

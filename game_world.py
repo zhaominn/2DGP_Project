@@ -5,7 +5,7 @@ collision_pairs={}
 def add_collision_pair(group,a,b):
     if group not in collision_pairs:
         # 초기화
-        print(f'Added new groub{group}')
+        #print(f'Added new groub{group}')
         collision_pairs[group]=[[],[]]
     if a:
         collision_pairs[group][0].append(a)
@@ -17,8 +17,8 @@ def handle_collisions():
         for a in pairs[0]:
             for b in pairs[1]:
                 if collide(a, b):
-                    a.handle_collision(group, b)
-                    b.handle_collision(group, a)
+                    a.handle_collision(group)
+                    b.handle_collision(group)
 
 def add_object(o, depth = 0):
     world[depth].append(o)
@@ -42,7 +42,7 @@ def remove_object(o):
             layer.remove(o)
             return
 
-    raise ValueError('Cannot delete non existing object')
+    #raise ValueError('Cannot delete non existing object')
 
 def clear():
     global world

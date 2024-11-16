@@ -8,7 +8,7 @@ from Player import Player
 from tool import Tool
 from crop_ground import CropGround
 
-
+name = "crop_mode"
 
 def handle_events():
     events = get_events()

@@ -77,5 +77,8 @@ def run(start_mode):
 def get_mode():
     global stack
     if len(stack) > 0:
-        return stack[-1]
+        current_mode = stack[-1]
+        print('----------------')
+        print(getattr(current_mode, 'name', current_mode.__class__.__name__))
+        return getattr(current_mode, 'name', current_mode.__class__.__name__)  # 현재 모드의 모듈 이름을 반환
     return None
