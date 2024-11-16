@@ -58,6 +58,12 @@ def four_down(e):
 def four_up(e):
     return e[0] =='INPUT' and e[1].type == SDL_KEYUP and e[1].key==SDLK_4
 
+def five_down(e):
+    return e[0] =='INPUT' and e[1].type == SDL_KEYDOWN and e[1].key==SDLK_5
+
+def five_up(e):
+    return e[0] =='INPUT' and e[1].type == SDL_KEYUP and e[1].key==SDLK_5
+
 class StateMachine:
     def __init__(self, obj):
         self.obj = obj

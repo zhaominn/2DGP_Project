@@ -1,13 +1,13 @@
 from pico2d import *
 
+
 import game_framework
 import game_world
 import play_mode
-from Player import Player
+from Player import Player, Feed
 from Coop import Cow, Sheep, Pig
 from tool import Tool
 from coop_ground import CoopGround
-
 
 def handle_events():
     events = get_events()
@@ -41,7 +41,14 @@ def init():
     game_world.add_object(player, 2)
     tool = Tool()
     game_world.add_object(tool, 2)
-    pass
+
+    game_world.add_collision_pair('player:animals', player, None)
+    for cow in cows:
+        game_world.add_collision_pair('player:animals', None, cow)
+    for sheep in sheeps:
+        game_world.add_collision_pair('player:animals', None, sheep)
+    for pig in pigs:
+        game_world.add_collision_pair('player:animals', None, pig)
 
 def finish():
     game_world.clear()
@@ -49,6 +56,8 @@ def finish():
 
 def update():
     game_world.update()
+    if player.state_machine.get_state() == Feed:
+        game_world.handle_collisions()
 
 def draw():
     clear_canvas()

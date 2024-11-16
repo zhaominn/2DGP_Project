@@ -214,6 +214,34 @@ class Mine:
             player.x, player.y, 200, 200
         )
 
+class Feed:
+    @staticmethod
+    def enter(player, e):
+        if player.action == 4 or player.action == 8:
+            player.dir, player.action = 0, 0
+        elif player.action == 5 or player.action == 9:
+            player.dir, player.action = 0, 1
+        elif player.action == 6 or player.action == 10:
+            player.dir, player.action = 0, 2
+        elif player.action == 7 or player.action == 11:
+            player.dir, player.action = 0, 3
+
+        player.dir = 0  # 정지 상태
+        player.frame = 0
+        player.frame_time = get_time()
+
+    @staticmethod
+    def exit(player, e):
+        pass
+
+    @staticmethod
+    def do(player):
+        player.frame = (player.frame + 2 * ACTION_PER_TIME * game_framework.frame_time) % 2
+
+    @staticmethod
+    def draw(player):
+        player.basic_image.clip_draw(int(player.frame) * 96, player.action * 96, 96, 96, player.x, player.y, 200, 200)
+
 class Player:
     def __init__(self,cropObj=None):
         self.cropObj =cropObj
@@ -230,27 +258,38 @@ class Player:
                 Idle: {right_down: Run, left_down: Run, left_up: Run, right_up: Run,
                        up_down: Run, down_down: Run, up_up: Run, down_up: Run,
                        one_down: Mine, one_up: Mine, two_down: Crop, two_up: Crop,
-                       three_down: Water, three_up: Water,four_down:Seed,four_up:Seed},
+                       three_down: Water, three_up: Water,four_down:Seed,four_up:Seed,
+                       five_down:Feed,five_up:Feed},
                 Run: {right_down: Idle, left_down: Idle, right_up: Idle, left_up: Idle,
                       up_down: Idle, down_down: Idle, up_up: Idle, down_up: Idle,
                       one_down: Mine, one_up: Mine, two_down: Crop, two_up: Crop,
-                      three_down: Water, three_up: Water,four_down:Seed,four_up:Seed},
+                      three_down: Water, three_up: Water,four_down:Seed,four_up:Seed,
+                       five_down:Feed,five_up:Feed},
                 Mine:{right_down: Run, left_down: Run,up_down: Run, down_down: Run,
                        left_up: Run, right_up: Run,up_up: Run, down_up: Run,
                         two_down: Crop, two_up: Crop, three_down: Water,three_up: Water,
-                        time_out : Idle,four_down:Seed,four_up:Seed},
+                        four_down:Seed,four_up:Seed, five_down:Feed,five_up:Feed,
+                      time_out : Idle,},
                 Crop:{right_down: Run, left_down: Run,up_down: Run, down_down: Run,
                       left_up: Run, right_up: Run, up_up: Run, down_up: Run,
                         one_down: Mine, one_up: Mine, three_down: Water, three_up: Water,
-                      four_down:Seed,four_up:Seed,time_out : Idle},
+                      four_down:Seed,four_up:Seed, five_down:Feed,five_up:Feed,
+                      time_out : Idle},
                 Water: {right_down: Run, left_down: Run,up_down: Run, down_down: Run,
                        left_up: Run, right_up: Run,up_up: Run, down_up: Run,
                         one_down: Mine, one_up: Mine, two_down: Crop, two_up: Crop,
-                       four_down:Seed,four_up:Seed,time_out : Idle},
+                       four_down:Seed,four_up:Seed, five_down:Feed,five_up:Feed,
+                        time_out : Idle},
                 Seed: {right_down: Run, left_down: Run,up_down: Run, down_down: Run,
                        left_up: Run, right_up: Run,up_up: Run, down_up: Run,
                         one_down: Mine, one_up: Mine, two_down: Crop, two_up: Crop,
-                    three_down: Water, three_up: Water, time_out : Idle}
+                        three_down: Water, three_up: Water, five_down:Feed,five_up:Feed,
+                       time_out : Idle},
+                Feed:{right_down: Run, left_down: Run,up_down: Run, down_down: Run,
+                       left_up: Run, right_up: Run,up_up: Run, down_up: Run,
+                        one_down: Mine, one_up: Mine, two_down: Crop, two_up: Crop,
+                        three_down: Water, three_up: Water, four_down:Seed,four_up:Seed,
+                       time_out : Idle},
             }
         )
 
