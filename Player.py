@@ -228,7 +228,7 @@ class Feed:
 
         player.dir = 0  # 정지 상태
         player.frame = 0
-        player.frame_time = get_time()
+        player.start_time = get_time()
 
     @staticmethod
     def exit(player, e):
