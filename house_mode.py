@@ -14,7 +14,7 @@ def handle_events():
     for event in events:
         if event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
             game_framework.quit()
-        elif game_world.collide_bb(player.get_bb(),(0, 700, 1600, 800)) and event.type == SDL_KEYDOWN and event.key == SDLK_SPACE:
+        elif game_world.collide_bb(player.get_bb(), (0,0,1600,100)) and event.type == SDL_KEYDOWN and event.key == SDLK_SPACE:
             game_framework.change_mode(play_mode)
         elif event.type in (SDL_KEYDOWN, SDL_KEYUP):
             player.handle_events(event)
