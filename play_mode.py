@@ -4,6 +4,7 @@ import coop_mode
 import crop_mode
 import game_framework
 import game_world
+import house_mode
 import mine_mode
 from Player import Player
 from tool import Tool
@@ -21,6 +22,8 @@ def handle_events():
             game_framework.change_mode(mine_mode)
         elif game_world.collide_bb(player.get_bb(), mainGround.get_coop_bb()) and event.type == SDL_KEYDOWN and event.key == SDLK_SPACE:
             game_framework.change_mode(coop_mode)
+        elif game_world.collide_bb(player.get_bb(), mainGround.get_house_bb()) and event.type == SDL_KEYDOWN and event.key == SDLK_SPACE:
+            game_framework.change_mode(house_mode)
         elif event.type in (SDL_KEYDOWN, SDL_KEYUP):
                 player.handle_events(event)
 
