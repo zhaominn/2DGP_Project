@@ -53,16 +53,19 @@ def draw():
 def sleep():
     for j in range(10):
         for i in range(27):
-            if CropObj.seed_block_positions[i][j] == 1:
-                CropObj.seed_block_positions[i][j] = 2
-            elif CropObj.seed_block_positions[i][j] == 2:
-                CropObj.seed_block_positions[i][j] = 3
-            elif CropObj.seed_block_positions[i][j] == 3:
-                CropObj.seed_block_positions[i][j] = 4
-            elif CropObj.seed_block_positions[i][j] == 4:
-                CropObj.seed_block_positions[i][j] = 5
-            elif CropObj.seed_block_positions[i][j] == 5:
-                CropObj.seed_block_positions[i][j] = 6
+            if CropObj.water_block_positions[i][j]==1:
+                if CropObj.seed_block_positions[i][j] == 1:
+                    CropObj.seed_block_positions[i][j] = 2
+                elif CropObj.seed_block_positions[i][j] == 2:
+                    CropObj.seed_block_positions[i][j] = 3
+                elif CropObj.seed_block_positions[i][j] == 3:
+                    CropObj.seed_block_positions[i][j] = 4
+                elif CropObj.seed_block_positions[i][j] == 4:
+                    CropObj.seed_block_positions[i][j] = 5
+                elif CropObj.seed_block_positions[i][j] == 5:
+                    CropObj.seed_block_positions[i][j] = 6
+
+                CropObj.water_block_positions[i][j] = 0
 
 def pause(): pass
 def resume():pass
