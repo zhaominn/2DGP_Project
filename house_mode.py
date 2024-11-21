@@ -64,6 +64,8 @@ def sleep():
                     CropObj.seed_block_positions[i][j] = 5
                 elif CropObj.seed_block_positions[i][j] == 5:
                     CropObj.seed_block_positions[i][j] = 6
+                elif CropObj.seed_block_positions[i][j] == 6:
+                    CropObj.seed_block_positions[i][j] = 7
 
                 CropObj.water_block_positions[i][j] = 0
 
