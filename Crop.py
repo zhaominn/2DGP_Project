@@ -55,7 +55,14 @@ class CropObj:
                 # 특정 블록의 좌표 범위 내에 있는지 확인
                 if (86 + self.block_width * i <= x < 86 + self.block_width * (i + 1) and
                         83 + self.block_width * j <= y < 83 + self.block_width * (j + 1)):
-                    if CropObj.water_block_positions[i][j] == 1 and self.seed_block_positions[i][j] == 0:
+                    if CropObj.water_block_positions[i][j] == 1 \
+                            and self.seed_block_positions[i][j] != 1\
+                            and self.seed_block_positions[i][j] != 2\
+                            and self.seed_block_positions[i][j] != 3\
+                            and self.seed_block_positions[i][j] != 4 \
+                            and self.seed_block_positions[i][j] != 5 \
+                            and self.seed_block_positions[i][j] != 6 \
+                            and self.seed_block_positions[i][j] != 7 :
                         self.seed_block_positions[i][j] = 1
                         return 86 + self.block_width * i, 83 + self.block_width * j
 
