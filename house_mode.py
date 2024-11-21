@@ -7,6 +7,7 @@ import play_mode
 from Player import Player
 from tool import Tool
 from house_ground import HouseGround
+from Crop import CropObj
 
 def handle_events():
     #playerX, playerY= player.get_point()
@@ -16,6 +17,8 @@ def handle_events():
             game_framework.quit()
         elif game_world.collide_bb(player.get_bb(), (0,0,1600,100)) and event.type == SDL_KEYDOWN and event.key == SDLK_SPACE:
             game_framework.change_mode(play_mode)
+        elif game_world.collide_bb(player.get_bb(), HouseGround.get_bed_bb()) and event.type == SDL_KEYDOWN and event.key == SDLK_SPACE:
+            sleep()
         elif event.type in (SDL_KEYDOWN, SDL_KEYUP):
             player.handle_events(event)
 
@@ -45,6 +48,9 @@ def draw():
     clear_canvas()
     game_world.render()
     update_canvas()
+
+def sleep():
+    pass
 
 def pause(): pass
 def resume():pass
