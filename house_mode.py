@@ -17,7 +17,7 @@ def handle_events():
             game_framework.quit()
         elif game_world.collide_bb(player.get_bb(), (0,0,1600,100)) and event.type == SDL_KEYDOWN and event.key == SDLK_SPACE:
             game_framework.change_mode(play_mode)
-        elif game_world.collide_bb(player.get_bb(), HouseGround.get_bed_bb()) and event.type == SDL_KEYDOWN and event.key == SDLK_SPACE:
+        elif game_world.collide_bb(player.get_bb(), houseGround.get_bed_bb()) and event.type == SDL_KEYDOWN and event.key == SDLK_SPACE:
             sleep()
         elif event.type in (SDL_KEYDOWN, SDL_KEYUP):
             player.handle_events(event)
@@ -27,6 +27,7 @@ def init():
     global houseGround
     global player
     global tool
+
 
 
     houseGround = HouseGround()
@@ -50,7 +51,18 @@ def draw():
     update_canvas()
 
 def sleep():
-    pass
+    for j in range(10):
+        for i in range(27):
+            if CropObj.seed_block_positions[i][j] == 1:
+                CropObj.seed_block_positions[i][j] = 2
+            elif CropObj.seed_block_positions[i][j] == 2:
+                CropObj.seed_block_positions[i][j] = 3
+            elif CropObj.seed_block_positions[i][j] == 3:
+                CropObj.seed_block_positions[i][j] = 4
+            elif CropObj.seed_block_positions[i][j] == 4:
+                CropObj.seed_block_positions[i][j] = 5
+            elif CropObj.seed_block_positions[i][j] == 5:
+                CropObj.seed_block_positions[i][j] = 6
 
 def pause(): pass
 def resume():pass
