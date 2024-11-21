@@ -71,29 +71,29 @@ class CropObj:
                                          86 + self.block_width * i + 26,
                                          83 + self.block_width * j + 26)
                 if CropObj.seed_block_positions[i][j] == 1:
-                    self.seed_image.clip_draw(0 * 16, 0, 16, 16,
+                    self.seed_image.clip_draw(0 * 16, 0, 16, 20,
                                         86 + self.block_width * i + 26,
-                                        83 + self.block_width * j + 26, 48, 60)
+                                        83 + self.block_width * j + 26, 36, 45)
                 elif CropObj.seed_block_positions[i][j] == 2:
-                    self.seed_image.clip_draw(1 * 16, 0, 16, 16,
+                    self.seed_image.clip_draw(1 * 16, 0, 16, 20,
                                         86 + self.block_width * i + 26,
-                                        83 + self.block_width * j + 26, 48, 60)
+                                        83 + self.block_width * j + 26, 36, 45)
                 elif CropObj.seed_block_positions[i][j] == 3:
-                    self.seed_image.clip_draw(2 * 16, 0, 16, 16,
+                    self.seed_image.clip_draw(2 * 16, 0, 16, 20,
                                         86 + self.block_width * i + 26,
-                                        83 + self.block_width * j + 26, 48, 60)
+                                        83 + self.block_width * j + 26, 36, 45)
                 elif CropObj.seed_block_positions[i][j] == 4:
-                    self.seed_image.clip_draw(3 * 16, 0, 16, 16,
+                    self.seed_image.clip_draw(3 * 16, 0, 16, 20,
                                         86 + self.block_width * i + 26,
-                                        83 + self.block_width * j + 26, 48, 60)
+                                        83 + self.block_width * j + 26, 36, 45)
                 elif CropObj.seed_block_positions[i][j] == 5:
-                    self.seed_image.clip_draw(4 * 16, 0, 16, 16,
+                    self.seed_image.clip_draw(4 * 16, 0, 16, 20,
                                         86 + self.block_width * i + 26,
-                                        83 + self.block_width * j + 26, 48, 60)
+                                        83 + self.block_width * j + 26, 36, 45)
                 elif CropObj.seed_block_positions[i][j] == 6:
-                    self.seed_image.clip_draw(5 * 16, 0, 16, 16,
+                    self.seed_image.clip_draw(5 * 16, 0, 16, 20,
                                         86 + self.block_width * i + 26,
-                                        83 + self.block_width * j + 26, 48, 60)
+                                        83 + self.block_width * j + 26, 36, 45)
 
     def update(self):
         pass
