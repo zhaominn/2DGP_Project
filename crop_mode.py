@@ -40,7 +40,7 @@ def init():
     game_world.add_object(tool, 2)
 
     change_stage = stage_change.Change_stage()
-    pass
+    change_stage.start_stage(cropGround)
 
 def finish():
     game_world.clear()

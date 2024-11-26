@@ -3,11 +3,14 @@ from sdl2 import SDL_KEYDOWN, SDLK_ESCAPE, SDLK_RETURN
 
 import game_framework
 import play_mode
+import stage_change
 
 def init():
     global image
+    global change_stage
 
     image=load_image('image//stage0_start//start_image.png')
+    change_stage = stage_change.Change_stage()
 
 def finish():
     global image
@@ -19,7 +22,7 @@ def handle_events():
         if event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
             game_framework.quit()
         elif (event.type, event.key) == (SDL_KEYDOWN, SDLK_RETURN):
-            game_framework.change_mode(play_mode)
+            change_stage.change_stage(play_mode)
 
 
 def draw():

@@ -4,6 +4,7 @@ from pico2d import *
 import game_framework
 import game_world
 import play_mode
+import stage_change
 from Player import Player
 from tool import Tool
 from house_ground import HouseGround
@@ -16,7 +17,7 @@ def handle_events():
         if event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
             game_framework.quit()
         elif game_world.collide_bb(player.get_bb(), (0,0,1600,100)) and event.type == SDL_KEYDOWN and event.key == SDLK_SPACE:
-            game_framework.change_mode(play_mode)
+            change_stage.change_stage(play_mode)
         elif game_world.collide_bb(player.get_bb(), houseGround.get_bed_bb()) and event.type == SDL_KEYDOWN and event.key == SDLK_SPACE:
             sleep()
         elif event.type in (SDL_KEYDOWN, SDL_KEYUP):
@@ -27,8 +28,7 @@ def init():
     global houseGround
     global player
     global tool
-
-
+    global change_stage
 
     houseGround = HouseGround()
     game_world.add_object(houseGround, 0)
@@ -36,7 +36,9 @@ def init():
     game_world.add_object(player, 2)
     tool = Tool()
     game_world.add_object(tool, 2)
-    pass
+
+    change_stage = stage_change.Change_stage()
+    change_stage.start_stage(houseGround)
 
 def finish():
     game_world.clear()

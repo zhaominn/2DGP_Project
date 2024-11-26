@@ -4,6 +4,7 @@ from pico2d import *
 import game_framework
 import game_world
 import play_mode
+import stage_change
 from Player import Player, Feed
 from Coop import Cow, Sheep, Pig
 from tool import Tool
@@ -15,7 +16,7 @@ def handle_events():
         if event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
             game_framework.quit()
         elif game_world.collide_bb(player.get_bb(), (0,0,1600,100)) and event.type == SDL_KEYDOWN and event.key == SDLK_SPACE:
-            game_framework.change_mode(play_mode)
+            change_stage.change_stage(play_mode)
         elif event.type in (SDL_KEYDOWN, SDL_KEYUP):
                 player.handle_events(event)
 
@@ -27,7 +28,7 @@ def init():
     global sheeps
     global pigs
     global tool
-
+    global change_stage
 
     coopGround = CoopGround()
     game_world.add_object(coopGround, 0)
@@ -49,6 +50,9 @@ def init():
         game_world.add_collision_pair('player:animals', None, sheep)
     for pig in pigs:
         game_world.add_collision_pair('player:animals', None, pig)
+
+    change_stage = stage_change.Change_stage()
+    change_stage.start_stage(coopGround)
 
 def finish():
     game_world.clear()

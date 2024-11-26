@@ -18,13 +18,13 @@ def handle_events():
         if event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
             game_framework.quit()
         elif game_world.collide_bb(player.get_bb(), mainGround.get_crop_bb()) and event.type == SDL_KEYDOWN and event.key == SDLK_SPACE:
-            game_framework.change_mode(crop_mode)
+            change_stage.change_stage(crop_mode)
         elif game_world.collide_bb(player.get_bb(), mainGround.get_mine_bb()) and event.type == SDL_KEYDOWN and event.key == SDLK_SPACE:
-            game_framework.change_mode(mine_mode)
+            change_stage.change_stage(mine_mode)
         elif game_world.collide_bb(player.get_bb(), mainGround.get_coop_bb()) and event.type == SDL_KEYDOWN and event.key == SDLK_SPACE:
-            game_framework.change_mode(coop_mode)
+            change_stage.change_stage(coop_mode)
         elif game_world.collide_bb(player.get_bb(), mainGround.get_house_bb()) and event.type == SDL_KEYDOWN and event.key == SDLK_SPACE:
-            game_framework.change_mode(house_mode)
+            change_stage.change_stage(house_mode)
         elif event.type in (SDL_KEYDOWN, SDL_KEYUP):
                 player.handle_events(event)
 
@@ -44,7 +44,6 @@ def init():
 
     change_stage = stage_change.Change_stage()
     change_stage.start_stage(mainGround)
-    pass
 
 def finish():
     game_world.clear()

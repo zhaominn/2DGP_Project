@@ -5,6 +5,7 @@ from pico2d import *
 import game_framework
 import game_world
 import play_mode
+import stage_change
 from Mine import Stone
 from Player import Player, Mine
 from mine_ground import MineGround
@@ -17,7 +18,7 @@ def handle_events():
         if event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
             game_framework.quit()
         elif game_world.collide_bb(player.get_bb(), (0,700,1600,800)) and event.type == SDL_KEYDOWN and event.key == SDLK_SPACE:
-            game_framework.change_mode(play_mode)
+            change_stage.change_stage(play_mode)
         elif event.type in (SDL_KEYDOWN, SDL_KEYUP):
                 player.handle_events(event)
 
@@ -27,6 +28,7 @@ def init():
     global player
     global stones
     global tool
+    global change_stage
 
     mineGround = MineGround()
     game_world.add_object(mineGround, 0)
@@ -41,6 +43,9 @@ def init():
     game_world.add_collision_pair('player:stones', player, None)
     for stone in stones:
         game_world.add_collision_pair('player:stones', None, stone)
+
+    change_stage = stage_change.Change_stage()
+    change_stage.start_stage(mineGround)
 
 def finish():
     game_world.clear()
