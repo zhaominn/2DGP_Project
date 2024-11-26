@@ -54,18 +54,31 @@ def sleep():
     for j in range(10):
         for i in range(27):
             if CropObj.water_block_positions[i][j]==1:
-                if CropObj.seed_block_positions[i][j] == 1:
-                    CropObj.seed_block_positions[i][j] = 2
-                elif CropObj.seed_block_positions[i][j] == 2:
-                    CropObj.seed_block_positions[i][j] = 3
-                elif CropObj.seed_block_positions[i][j] == 3:
-                    CropObj.seed_block_positions[i][j] = 4
-                elif CropObj.seed_block_positions[i][j] == 4:
-                    CropObj.seed_block_positions[i][j] = 5
-                elif CropObj.seed_block_positions[i][j] == 5:
-                    CropObj.seed_block_positions[i][j] = 6
-                elif CropObj.seed_block_positions[i][j] == 6:
-                    CropObj.seed_block_positions[i][j] = 7
+                if CropObj.pumpkin_seed_block_positions[i][j] == 1:
+                    CropObj.pumpkin_seed_block_positions[i][j] = 2
+                elif CropObj.pumpkin_seed_block_positions[i][j] == 2:
+                    CropObj.pumpkin_seed_block_positions[i][j] = 3
+                elif CropObj.pumpkin_seed_block_positions[i][j] == 3:
+                    CropObj.pumpkin_seed_block_positions[i][j] = 4
+                elif CropObj.pumpkin_seed_block_positions[i][j] == 4:
+                    CropObj.pumpkin_seed_block_positions[i][j] = 5
+                elif CropObj.pumpkin_seed_block_positions[i][j] == 5:
+                    CropObj.pumpkin_seed_block_positions[i][j] = 6
+                elif CropObj.pumpkin_seed_block_positions[i][j] == 6:
+                    CropObj.pumpkin_seed_block_positions[i][j] = 7
+
+                if CropObj.peach_seed_block_positions[i][j] == 1:
+                    CropObj.peach_seed_block_positions[i][j] = 2
+                elif CropObj.peach_seed_block_positions[i][j] == 2:
+                    CropObj.peach_seed_block_positions[i][j] = 3
+                elif CropObj.peach_seed_block_positions[i][j] == 3:
+                    CropObj.peach_seed_block_positions[i][j] = 4
+                elif CropObj.peach_seed_block_positions[i][j] == 4:
+                    CropObj.peach_seed_block_positions[i][j] = 5
+                elif CropObj.peach_seed_block_positions[i][j] == 5:
+                    CropObj.peach_seed_block_positions[i][j] = 6
+                elif CropObj.peach_seed_block_positions[i][j] == 6:
+                    CropObj.peach_seed_block_positions[i][j] = 7
 
                 CropObj.water_block_positions[i][j] = 0
 

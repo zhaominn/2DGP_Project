@@ -14,6 +14,10 @@ def pumpkin_seed_crop(x, y, cropObj): # 괭이
     if game_framework.get_mode() == 'crop_mode':
         cropObj.set_pumpkin_seed_position(x, y)
 
+def peach_seed_crop(x, y, cropObj): # 괭이
+    if game_framework.get_mode() == 'crop_mode':
+        cropObj.set_peach_seed_position(x, y)
+
 class CropObj:
     water_image=None
     crop_image=None
@@ -68,8 +72,38 @@ class CropObj:
                             and self.pumpkin_seed_block_positions[i][j] != 5 \
                             and self.pumpkin_seed_block_positions[i][j] != 6 \
                             and self.pumpkin_seed_block_positions[i][j] != 7 \
-                            and self.peach_seed_block_positions[i][j]!=1:
+                            and self.peach_seed_block_positions[i][j]!=1 \
+                            and self.peach_seed_block_positions[i][j] != 2 \
+                            and self.peach_seed_block_positions[i][j] != 3 \
+                            and self.peach_seed_block_positions[i][j] != 4 \
+                            and self.peach_seed_block_positions[i][j] != 5 \
+                            and self.peach_seed_block_positions[i][j] != 6 \
+                            and self.peach_seed_block_positions[i][j] != 7:
                         self.pumpkin_seed_block_positions[i][j] = 1
+                        return 86 + self.block_width * i, 83 + self.block_width * j
+
+    def set_peach_seed_position(self,x,y):
+        for j in range(10):
+            for i in range(27):
+                # 특정 블록의 좌표 범위 내에 있는지 확인
+                if (86 + self.block_width * i <= x < 86 + self.block_width * (i + 1) and
+                        83 + self.block_width * j <= y < 83 + self.block_width * (j + 1)):
+                    if CropObj.water_block_positions[i][j] == 1 \
+                            and self.pumpkin_seed_block_positions[i][j] != 1 \
+                            and self.pumpkin_seed_block_positions[i][j] != 2 \
+                            and self.pumpkin_seed_block_positions[i][j] != 3 \
+                            and self.pumpkin_seed_block_positions[i][j] != 4 \
+                            and self.pumpkin_seed_block_positions[i][j] != 5 \
+                            and self.pumpkin_seed_block_positions[i][j] != 6 \
+                            and self.pumpkin_seed_block_positions[i][j] != 7 \
+                            and self.peach_seed_block_positions[i][j] != 1 \
+                            and self.peach_seed_block_positions[i][j] != 2 \
+                            and self.peach_seed_block_positions[i][j] != 3 \
+                            and self.peach_seed_block_positions[i][j] != 4 \
+                            and self.peach_seed_block_positions[i][j] != 5 \
+                            and self.peach_seed_block_positions[i][j] != 6 \
+                            and self.peach_seed_block_positions[i][j] != 7:
+                        self.peach_seed_block_positions[i][j] = 1
                         return 86 + self.block_width * i, 83 + self.block_width * j
 
     def draw(self):
@@ -109,6 +143,34 @@ class CropObj:
                                         83 + self.block_width * j + 26, 36, 45)
                 elif CropObj.pumpkin_seed_block_positions[i][j] == 7:
                     self.pumpkin_seed_image.clip_draw(6 * 16, 0, 16, 20,
+                                        86 + self.block_width * i + 26,
+                                        83 + self.block_width * j + 26, 36, 45)
+                if CropObj.peach_seed_block_positions[i][j] == 1:
+                    self.peach_seed_image.clip_draw(0 * 16, 0, 16, 20,
+                                        86 + self.block_width * i + 26,
+                                        83 + self.block_width * j + 26, 36, 45)
+                elif CropObj.peach_seed_block_positions[i][j] == 2:
+                    self.peach_seed_image.clip_draw(1 * 16, 0, 16, 20,
+                                        86 + self.block_width * i + 26,
+                                        83 + self.block_width * j + 26, 36, 45)
+                elif CropObj.peach_seed_block_positions[i][j] == 3:
+                    self.peach_seed_image.clip_draw(2 * 16, 0, 16, 20,
+                                        86 + self.block_width * i + 26,
+                                        83 + self.block_width * j + 26, 36, 45)
+                elif CropObj.peach_seed_block_positions[i][j] == 4:
+                    self.peach_seed_image.clip_draw(3 * 16, 0, 16, 20,
+                                        86 + self.block_width * i + 26,
+                                        83 + self.block_width * j + 26, 36, 45)
+                elif CropObj.peach_seed_block_positions[i][j] == 5:
+                    self.peach_seed_image.clip_draw(4 * 16, 0, 16, 20,
+                                        86 + self.block_width * i + 26,
+                                        83 + self.block_width * j + 26, 36, 45)
+                elif CropObj.peach_seed_block_positions[i][j] == 6:
+                    self.peach_seed_image.clip_draw(5 * 16, 0, 16, 20,
+                                        86 + self.block_width * i + 26,
+                                        83 + self.block_width * j + 26, 36, 45)
+                elif CropObj.peach_seed_block_positions[i][j] == 7:
+                    self.peach_seed_image.clip_draw(6 * 16, 0, 16, 20,
                                         86 + self.block_width * i + 26,
                                         83 + self.block_width * j + 26, 36, 45)
 

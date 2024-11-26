@@ -2,7 +2,7 @@ from pico2d import load_image, get_time, draw_rectangle
 import tkinter
 
 from StateMachine import *
-from Crop import water_crop, crop_crop, pumpkin_seed_crop
+from Crop import water_crop, crop_crop, pumpkin_seed_crop, peach_seed_crop
 import game_framework
 
 root = tkinter.Tk()
@@ -168,7 +168,7 @@ class Seed:
         if four_down(e) or four_up(e):
             pumpkin_seed_crop(player.x,player.y, player.cropObj)
         if five_down(e) or five_up(e):
-            #seed_crop(player.x,player.y, player.cropObj)
+            peach_seed_crop(player.x,player.y, player.cropObj)
             pass
         player.dir = 0  # 정지 상태
         player.frame = 0
