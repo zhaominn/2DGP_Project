@@ -6,6 +6,7 @@ import game_framework
 import game_world
 import house_mode
 import mine_mode
+import stage_change
 from Player import Player
 from tool import Tool
 from main_ground import MainGround
@@ -32,7 +33,7 @@ def init():
     global mainGround
     global player
     global tool
-
+    global change_stage
 
     mainGround = MainGround()
     game_world.add_object(mainGround, 0)
@@ -40,6 +41,9 @@ def init():
     game_world.add_object(player, 2)
     tool = Tool()
     game_world.add_object(tool, 2)
+
+    change_stage = stage_change.Change_stage()
+    change_stage.start_stage(mainGround)
     pass
 
 def finish():

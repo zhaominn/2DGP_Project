@@ -3,6 +3,7 @@ from pico2d import *
 import game_framework
 import game_world
 import play_mode
+import stage_change
 from Crop import CropObj
 from Player import Player
 from tool import Tool
@@ -16,7 +17,7 @@ def handle_events():
         if event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
             game_framework.quit()
         elif game_world.collide_bb(player.get_bb(), (0,0,1600,100)) and event.type == SDL_KEYDOWN and event.key == SDLK_SPACE:
-            game_framework.change_mode(play_mode)
+            change_stage.change_stage(play_mode)
         elif event.type in (SDL_KEYDOWN, SDL_KEYUP):
                 player.handle_events(event)
 
@@ -26,6 +27,7 @@ def init():
     global player
     global crop_obj
     global tool
+    global change_stage
 
 
     cropGround = CropGround()
@@ -36,6 +38,8 @@ def init():
     game_world.add_object(player, 2)
     tool = Tool()
     game_world.add_object(tool, 2)
+
+    change_stage = stage_change.Change_stage()
     pass
 
 def finish():
