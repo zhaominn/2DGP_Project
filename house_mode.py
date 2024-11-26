@@ -6,9 +6,9 @@ import game_world
 import play_mode
 import stage_change
 from Player import Player
+from Sleep import Sleep
 from tool import Tool
 from house_ground import HouseGround
-from Crop import CropObj
 
 def handle_events():
     #playerX, playerY= player.get_point()
@@ -19,7 +19,7 @@ def handle_events():
         elif game_world.collide_bb(player.get_bb(), (0,0,1600,100)) and event.type == SDL_KEYDOWN and event.key == SDLK_SPACE:
             change_stage.change_stage(play_mode)
         elif game_world.collide_bb(player.get_bb(), houseGround.get_bed_bb()) and event.type == SDL_KEYDOWN and event.key == SDLK_SPACE:
-            sleep()
+            sleep.sleep(houseGround)
         elif event.type in (SDL_KEYDOWN, SDL_KEYUP):
             player.handle_events(event)
 
@@ -29,6 +29,7 @@ def init():
     global player
     global tool
     global change_stage
+    global sleep
 
     houseGround = HouseGround()
     game_world.add_object(houseGround, 0)
@@ -39,6 +40,8 @@ def init():
 
     change_stage = stage_change.Change_stage()
     change_stage.start_stage(houseGround)
+
+    sleep = Sleep()
 
 def finish():
     game_world.clear()
@@ -51,38 +54,6 @@ def draw():
     clear_canvas()
     game_world.render()
     update_canvas()
-
-def sleep():
-    for j in range(10):
-        for i in range(27):
-            if CropObj.water_block_positions[i][j]==1:
-                if CropObj.pumpkin_seed_block_positions[i][j] == 1:
-                    CropObj.pumpkin_seed_block_positions[i][j] = 2
-                elif CropObj.pumpkin_seed_block_positions[i][j] == 2:
-                    CropObj.pumpkin_seed_block_positions[i][j] = 3
-                elif CropObj.pumpkin_seed_block_positions[i][j] == 3:
-                    CropObj.pumpkin_seed_block_positions[i][j] = 4
-                elif CropObj.pumpkin_seed_block_positions[i][j] == 4:
-                    CropObj.pumpkin_seed_block_positions[i][j] = 5
-                elif CropObj.pumpkin_seed_block_positions[i][j] == 5:
-                    CropObj.pumpkin_seed_block_positions[i][j] = 6
-                elif CropObj.pumpkin_seed_block_positions[i][j] == 6:
-                    CropObj.pumpkin_seed_block_positions[i][j] = 7
-
-                if CropObj.peach_seed_block_positions[i][j] == 1:
-                    CropObj.peach_seed_block_positions[i][j] = 2
-                elif CropObj.peach_seed_block_positions[i][j] == 2:
-                    CropObj.peach_seed_block_positions[i][j] = 3
-                elif CropObj.peach_seed_block_positions[i][j] == 3:
-                    CropObj.peach_seed_block_positions[i][j] = 4
-                elif CropObj.peach_seed_block_positions[i][j] == 4:
-                    CropObj.peach_seed_block_positions[i][j] = 5
-                elif CropObj.peach_seed_block_positions[i][j] == 5:
-                    CropObj.peach_seed_block_positions[i][j] = 6
-                elif CropObj.peach_seed_block_positions[i][j] == 6:
-                    CropObj.peach_seed_block_positions[i][j] = 7
-
-                CropObj.water_block_positions[i][j] = 0
 
 def pause(): pass
 def resume():pass

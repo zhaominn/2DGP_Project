@@ -4,7 +4,7 @@ import game_framework
 
 class Change_stage:
     def __init__(self):
-        self.images = [load_image('image//change_stage//stage_change_%d.png' % x) for x in range(10)]
+        self.images = [load_image('image//animation//change_stage//stage_change_%d.png' % x) for x in range(10)]
 
     def change_stage(self, next_mode):
         for image in self.images:
