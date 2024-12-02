@@ -4,6 +4,8 @@ from Crop import CropObj
 class Sleep:
     def __init__(self):
         self.images = [load_image('image//animation//sleep//sleep_%d.png' % x) for x in range(1, 10 + 1)]
+        self.sound = load_wav('sound//sleep.wav')
+        self.sound.set_volume(10)
 
     def sleep(self, house_ground):
         for j in range(10):
@@ -39,10 +41,12 @@ class Sleep:
 
         for image in self.images:
             image.draw_now(800, 400)
+            self.sound.play()
             delay(0.1)
 
         for i in range(9,-1,-1):
             house_ground.draw()
             print(i)
             self.images[i].draw_now(800,400)
+            self.sound.play()
             delay(0.1)
