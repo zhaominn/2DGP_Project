@@ -10,6 +10,8 @@ from Sleep import Sleep
 from tool import Tool
 from house_ground import HouseGround
 
+name = "house_mode"
+
 def handle_events():
     #playerX, playerY= player.get_point()
     events = get_events()

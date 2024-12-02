@@ -1,4 +1,4 @@
-from pico2d import load_image, get_time, draw_rectangle
+from pico2d import load_image, get_time, draw_rectangle, load_wav
 import tkinter
 
 from StateMachine import *
@@ -19,6 +19,10 @@ RUN_SPEED_PPS = (RUN_SPEED_MPS * PIXEL_PER_METER)
 # Player Action Speed
 TIME_PER_ACTION = 0.4  # 행동 하나에 걸리는 시간(초)
 ACTION_PER_TIME = 1.0 / TIME_PER_ACTION  # 초당 행동 횟수
+
+# Sound
+SOUND_DURATION = 0.5
+
 
 class Idle:
     @staticmethod
@@ -81,6 +85,11 @@ class Run:
         elif player.action == 2 or player.action == 3:
             player.y+= player.dir * RUN_SPEED_PPS * game_framework.frame_time
         player.frame =(player.frame+4 * ACTION_PER_TIME * game_framework.frame_time) % 4
+
+        if game_framework.get_mode() == 'play_mode':
+            if get_time() - player.step_grass_sound_play_time > SOUND_DURATION:  # 사운드가 끝났다면
+                player.step_grass_sound.play()
+                player.step_grass_sound_play_time = get_time()
 
     @staticmethod
     def draw(player):
@@ -248,7 +257,7 @@ class Feed:
         player.basic_image.clip_draw(int(player.frame) * 96, player.action * 96, 96, 96, player.x, player.y, 200, 200)
 
 class Player:
-    def __init__(self,cropObj=None):
+    def __init__(self, cropObj=None):
         self.cropObj =cropObj
         self.x, self.y = monitor_width / 2, monitor_height / 2
         self.frame = 0
@@ -256,6 +265,10 @@ class Player:
         self.action = 3
         self.basic_image = load_image('image//Player//player_basic.png')
         self.action_image = load_image('image//Player//player_action.png')
+        self.step_grass_sound=load_wav('sound//step_grass.wav')
+        self.step_grass_sound.set_volume(30)
+        self.step_grass_sound_play_time = 0
+
         self.state_machine = StateMachine(self)  # 소년 객체의 state machine 생성
         self.state_machine.start(Idle)  # 초기 상태가 idle 로 설정
         self.state_machine.set_transitions(

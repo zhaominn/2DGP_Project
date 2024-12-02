@@ -11,6 +11,7 @@ from Player import Player, Mine
 from mine_ground import MineGround
 from tool import Tool
 
+name = "mine_mode"
 
 def handle_events():
     events = get_events()

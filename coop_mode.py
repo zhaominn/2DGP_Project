@@ -1,6 +1,5 @@
 from pico2d import *
 
-
 import game_framework
 import game_world
 import play_mode
@@ -9,6 +8,8 @@ from Player import Player, Feed
 from Coop import Cow, Sheep, Pig
 from tool import Tool
 from coop_ground import CoopGround
+
+name = "coop_mode"
 
 def handle_events():
     events = get_events()

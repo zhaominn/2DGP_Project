@@ -11,6 +11,8 @@ from Player import Player
 from tool import Tool
 from main_ground import MainGround
 
+name = "play_mode"
+
 def handle_events():
     #playerX, playerY= player.get_point()
     events = get_events()
@@ -46,7 +48,7 @@ def init():
     change_stage = stage_change.Change_stage()
     change_stage.start_stage(mainGround)
 
-    bgm=load_wav('sound//play_background.wav')
+    bgm=  load_wav('sound//play_background.wav')
     bgm.set_volume(30)
     bgm.repeat_play()
 
