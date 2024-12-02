@@ -1,12 +1,13 @@
 import random
 
-from pico2d import load_image, draw_rectangle
+from pico2d import load_image, draw_rectangle, load_wav
 
 import game_world
 
 
 class Stone:
     stone_image=None
+    crash_stone_sound=None
 
     def __init__(self):
         if Stone.stone_image==None:
@@ -15,8 +16,9 @@ class Stone:
         self.stoneNum = random.randint(0, 9)
         self.attackedNum = 0
         self.mining=False
-
-
+        if Stone.crash_stone_sound == None:
+            self.crash_stone_sound=load_wav('sound//crash_stone.wav')
+            self.crash_stone_sound.set_volume(30)
 
     def draw(self):
         self.stone_image.clip_draw(self.stoneNum * 32 + 16 * int(self.attackedNum), 0, 16, 16,
@@ -38,3 +40,4 @@ class Stone:
         if group == 'player:stones':
             if self.attackedNum < 1:
                 self.attackedNum = 1
+                self.crash_stone_sound.play()
