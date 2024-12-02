@@ -28,7 +28,7 @@ def init():
     global crop_obj
     global tool
     global change_stage
-
+    global bgm
 
     cropGround = CropGround()
     game_world.add_object(cropGround, 0)
@@ -42,8 +42,14 @@ def init():
     change_stage = stage_change.Change_stage()
     change_stage.start_stage(cropGround)
 
+    bgm=load_wav('sound//greenhouse_background.wav')
+    bgm.set_volume(10)
+    bgm.repeat_play()
+
 def finish():
     game_world.clear()
+    global bgm
+    del bgm
     pass
 
 def update():
