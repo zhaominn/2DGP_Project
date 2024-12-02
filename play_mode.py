@@ -34,6 +34,7 @@ def init():
     global player
     global tool
     global change_stage
+    global bgm
 
     mainGround = MainGround()
     game_world.add_object(mainGround, 0)
@@ -45,8 +46,14 @@ def init():
     change_stage = stage_change.Change_stage()
     change_stage.start_stage(mainGround)
 
+    bgm=load_wav('sound//play_background.wav')
+    bgm.set_volume(30)
+    bgm.repeat_play()
+
 def finish():
     game_world.clear()
+    global bgm
+    del bgm
     pass
 
 def update():

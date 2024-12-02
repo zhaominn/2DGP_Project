@@ -6,7 +6,7 @@ class Change_stage:
     def __init__(self):
         self.images = [load_image('image//animation//change_stage//stage_change_%d.png' % x) for x in range(10)]
         self.sound=load_wav('sound//change_stage.wav')
-        self.sound.set_volume(30)
+        self.sound.set_volume(10)
 
 
     def change_stage(self, next_mode):
