@@ -32,6 +32,7 @@ def init():
     global tool
     global change_stage
     global sleep
+    global bgm
 
     houseGround = HouseGround()
     game_world.add_object(houseGround, 0)
@@ -45,8 +46,14 @@ def init():
 
     sleep = Sleep()
 
+    bgm=load_wav('sound//house_background.wav')
+    bgm.set_volume(10)
+    bgm.repeat_play()
+
 def finish():
     game_world.clear()
+    global bgm
+    del bgm
     pass
 
 def update():
