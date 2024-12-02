@@ -30,6 +30,7 @@ def init():
     global stones
     global tool
     global change_stage
+    global bgm
 
     mineGround = MineGround()
     game_world.add_object(mineGround, 0)
@@ -48,8 +49,14 @@ def init():
     change_stage = stage_change.Change_stage()
     change_stage.start_stage(mineGround)
 
+    bgm=load_wav('sound//mine_background.wav')
+    bgm.set_volume(30)
+    bgm.repeat_play()
+
 def finish():
     game_world.clear()
+    global bgm
+    del bgm
     pass
 
 def update():
