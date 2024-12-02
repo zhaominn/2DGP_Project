@@ -90,6 +90,10 @@ class Run:
             if get_time() - player.step_grass_sound_play_time > SOUND_DURATION:  # 사운드가 끝났다면
                 player.step_grass_sound.play()
                 player.step_grass_sound_play_time = get_time()
+        elif game_framework.get_mode() == 'house_mode':
+            if get_time() - player.step_wood_sound_play_time > SOUND_DURATION:  # 사운드가 끝났다면
+                player.step_wood_sound.play()
+                player.step_wood_sound_play_time = get_time()
 
     @staticmethod
     def draw(player):
@@ -265,9 +269,13 @@ class Player:
         self.action = 3
         self.basic_image = load_image('image//Player//player_basic.png')
         self.action_image = load_image('image//Player//player_action.png')
+
         self.step_grass_sound=load_wav('sound//step_grass.wav')
         self.step_grass_sound.set_volume(30)
         self.step_grass_sound_play_time = 0
+        self.step_wood_sound=load_wav('sound//step_wood.wav')
+        self.step_wood_sound.set_volume(30)
+        self.step_wood_sound_play_time = 0
 
         self.state_machine = StateMachine(self)  # 소년 객체의 state machine 생성
         self.state_machine.start(Idle)  # 초기 상태가 idle 로 설정
