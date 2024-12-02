@@ -98,6 +98,10 @@ class Run:
             if get_time() - player.step_soil_sound_play_time > SOUND_DURATION:  # 사운드가 끝났다면
                 player.step_soil_sound.play()
                 player.step_soil_sound_play_time = get_time()
+        elif game_framework.get_mode() == 'mine_mode':
+            if get_time() - player.step_stone_sound_play_time > SOUND_DURATION:  # 사운드가 끝났다면
+                player.step_stone_sound.play()
+                player.step_stone_sound_play_time = get_time()
 
     @staticmethod
     def draw(player):
@@ -291,6 +295,9 @@ class Player:
         self.step_soil_sound = load_wav('sound//step_soil.wav')
         self.step_soil_sound.set_volume(30)
         self.step_soil_sound_play_time = 0
+        self.step_stone_sound = load_wav('sound//step_stone.wav')
+        self.step_stone_sound.set_volume(30)
+        self.step_stone_sound_play_time = 0
         self.water_sound = load_wav('sound//water.wav')
         self.water_sound.set_volume(30)
         self.hoe_sound = load_wav('sound//hoe.wav')

@@ -17,6 +17,7 @@ class Stone:
         self.mining=False
 
 
+
     def draw(self):
         self.stone_image.clip_draw(self.stoneNum * 32 + 16 * int(self.attackedNum), 0, 16, 16,
                                         self.x, self.y, 50, 50)
