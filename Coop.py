@@ -34,7 +34,7 @@ class Cow:
         if Cow.cow_image == None:
             self.cow_image = load_image('image//stage2.3_coop//cow.png')
         self.x,self.y=random.randint(100,1500),random.randint(150,700)
-        self.cycle_num = random.randint(3,30)
+        self.cycle_num = random.randint(5,50)
         self.start_time = get_time()
         self.frame=0
         self.dir = random.randint(0,1)
@@ -122,7 +122,7 @@ class Sheep:
         if Sheep.sheep_image == None:
             self.sheep_image = load_image('image//stage2.3_coop//sheep.png')
         self.x,self.y=random.randint(100,1500),random.randint(150,700)
-        self.cycle_num = random.randint(3,30)
+        self.cycle_num = random.randint(4,40)
         self.start_time = get_time()
         self.frame=0
         self.dir = random.randint(0,1)
@@ -198,6 +198,7 @@ class Sheep:
 
 class Pig:
     pig_image = None
+    pig_sound=None
     block_width = 32
     block_height = 32
 
@@ -205,11 +206,14 @@ class Pig:
         if Pig.pig_image == None:
             self.pig_image = load_image('image//stage2.3_coop//pig.png')
         self.x,self.y=random.randint(100,1500),random.randint(150,700)
-        self.cycle_num = random.randint(5,10)
+        self.cycle_num = random.randint(6,60)
         self.start_time = get_time()
         self.frame=0
         self.dir = random.randint(0,1)
         self.action = random.randint(0,2)
+        if self.pig_sound == None:
+            self.pig_sound=load_wav('sound//pig.wav')
+            self.pig_sound.set_volume(20)
 
     def draw(self):
         if self.action==0: # 밥먹기
@@ -263,6 +267,7 @@ class Pig:
                 else: self.dir=0
         if get_time() - self.start_time > self.cycle_num:
             update_animals_positions(self)
+            self.pig_sound.play()
         pass
 
     def get_bb(self):
