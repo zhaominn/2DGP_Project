@@ -3,12 +3,10 @@ from pico2d import load_image
 import game_framework
 
 def water_crop(x, y, cropObj): # 물주기
-    if game_framework.get_mode()=='crop_mode':
-        cropObj.set_water_position(x, y)
+    cropObj.set_water_position(x, y)
 
 def crop_crop(x, y, cropObj): # 괭이
-    if game_framework.get_mode() == 'crop_mode':
-        cropObj.set_crop_position(x, y)
+    cropObj.set_crop_position(x, y)
 
 def pumpkin_seed_crop(x, y, cropObj): # 괭이
     if game_framework.get_mode() == 'crop_mode':

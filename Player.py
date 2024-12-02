@@ -118,7 +118,9 @@ class Water:
         elif player.action==7 or player.action==11:
             player.action = 3
 
-        water_crop(player.x,player.y, player.cropObj)
+        if game_framework.get_mode() == 'crop_mode':
+            player.water_sound.play()
+            water_crop(player.x,player.y, player.cropObj)
         player.start_time = get_time()
 
     @staticmethod
@@ -150,7 +152,9 @@ class Crop:
         elif player.action==3 or player.action==7:
             player.action = 11
 
-        crop_crop(player.x, player.y, player.cropObj)
+        if game_framework.get_mode() == 'crop_mode':
+            player.hoe_sound.play()
+            crop_crop(player.x, player.y, player.cropObj)
         player.start_time = get_time()
 
     @staticmethod
@@ -283,6 +287,10 @@ class Player:
         self.step_soil_sound = load_wav('sound//step_soil.wav')
         self.step_soil_sound.set_volume(30)
         self.step_soil_sound_play_time = 0
+        self.water_sound = load_wav('sound//water.wav')
+        self.water_sound.set_volume(30)
+        self.hoe_sound = load_wav('sound//hoe.wav')
+        self.hoe_sound.set_volume(30)
 
         self.state_machine = StateMachine(self)  # 소년 객체의 state machine 생성
         self.state_machine.start(Idle)  # 초기 상태가 idle 로 설정
