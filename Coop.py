@@ -1,6 +1,6 @@
 import random
 
-from pico2d import load_image, get_time, draw_rectangle
+from pico2d import load_image, get_time, draw_rectangle, load_wav
 
 import coop_mode
 import game_framework
@@ -26,6 +26,7 @@ def update_animals_positions(animal):
 
 class Cow:
     cow_image = None
+    cow_sound=None
     block_width = 32
     block_height = 32
 
@@ -33,11 +34,14 @@ class Cow:
         if Cow.cow_image == None:
             self.cow_image = load_image('image//stage2.3_coop//cow.png')
         self.x,self.y=random.randint(100,1500),random.randint(150,700)
-        self.cycle_num = random.randint(5,10)
+        self.cycle_num = random.randint(3,30)
         self.start_time = get_time()
         self.frame=0
         self.dir = random.randint(0,1)
         self.action = random.randint(1,2)
+        if Cow.cow_sound==None:
+            self.cow_sound=load_wav('sound//cow.wav')
+            self.cow_sound.set_volume(20)
 
     def draw(self):
         if self.action==0: # 밥먹기
@@ -95,6 +99,7 @@ class Cow:
                     self.x += self.dir * RUN_SPEED_PPS * game_framework.frame_time
                 else: self.dir=0
         if get_time() - self.start_time > self.cycle_num:
+            self.cow_sound.play()
             update_animals_positions(self)
         pass
 
