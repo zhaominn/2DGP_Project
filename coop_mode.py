@@ -30,6 +30,7 @@ def init():
     global pigs
     global tool
     global change_stage
+    global bgm
 
     coopGround = CoopGround()
     game_world.add_object(coopGround, 0)
@@ -54,6 +55,10 @@ def init():
 
     change_stage = stage_change.Change_stage()
     change_stage.start_stage(coopGround)
+
+    bgm = load_wav('sound//animal_background.wav')
+    bgm.set_volume(10)
+    bgm.repeat_play()
 
 def finish():
     game_world.clear()
