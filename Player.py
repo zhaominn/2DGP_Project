@@ -94,7 +94,7 @@ class Run:
             if get_time() - player.step_wood_sound_play_time > SOUND_DURATION:  # 사운드가 끝났다면
                 player.step_wood_sound.play()
                 player.step_wood_sound_play_time = get_time()
-        elif game_framework.get_mode() == 'crop_mode':
+        elif game_framework.get_mode() == 'crop_mode' or game_framework.get_mode() == 'animal_mode':
             if get_time() - player.step_soil_sound_play_time > SOUND_DURATION:  # 사운드가 끝났다면
                 player.step_soil_sound.play()
                 player.step_soil_sound_play_time = get_time()
