@@ -94,6 +94,10 @@ class Run:
             if get_time() - player.step_wood_sound_play_time > SOUND_DURATION:  # 사운드가 끝났다면
                 player.step_wood_sound.play()
                 player.step_wood_sound_play_time = get_time()
+        elif game_framework.get_mode() == 'crop_mode':
+            if get_time() - player.step_soil_sound_play_time > SOUND_DURATION:  # 사운드가 끝났다면
+                player.step_soil_sound.play()
+                player.step_soil_sound_play_time = get_time()
 
     @staticmethod
     def draw(player):
@@ -276,6 +280,9 @@ class Player:
         self.step_wood_sound=load_wav('sound//step_wood.wav')
         self.step_wood_sound.set_volume(30)
         self.step_wood_sound_play_time = 0
+        self.step_soil_sound = load_wav('sound//step_soil.wav')
+        self.step_soil_sound.set_volume(30)
+        self.step_soil_sound_play_time = 0
 
         self.state_machine = StateMachine(self)  # 소년 객체의 state machine 생성
         self.state_machine.start(Idle)  # 초기 상태가 idle 로 설정
