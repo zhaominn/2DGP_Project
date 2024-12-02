@@ -114,6 +114,7 @@ class Cow:
 
 class Sheep:
     sheep_image = None
+    sheep_sound=None
     block_width = 32
     block_height = 32
 
@@ -121,11 +122,14 @@ class Sheep:
         if Sheep.sheep_image == None:
             self.sheep_image = load_image('image//stage2.3_coop//sheep.png')
         self.x,self.y=random.randint(100,1500),random.randint(150,700)
-        self.cycle_num = random.randint(5,10)
+        self.cycle_num = random.randint(3,30)
         self.start_time = get_time()
         self.frame=0
         self.dir = random.randint(0,1)
         self.action = random.randint(0,2)
+        if Sheep.sheep_sound==None:
+            self.sheep_sound=load_wav('sound//sheep.wav')
+            self.sheep_sound.set_volume(20)
 
     def draw(self):
         if self.action==0: # 밥먹기
@@ -180,6 +184,7 @@ class Sheep:
 
         if get_time() - self.start_time > self.cycle_num:
             update_animals_positions(self)
+            self.sheep_sound.play()
         pass
 
     def get_bb(self):
