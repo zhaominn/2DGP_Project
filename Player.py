@@ -187,10 +187,14 @@ class Seed:
             player.dir, player.action = 0, 3
 
         if four_down(e) or four_up(e):
-            pumpkin_seed_crop(player.x,player.y, player.cropObj)
-        if five_down(e) or five_up(e):
-            peach_seed_crop(player.x,player.y, player.cropObj)
-            pass
+            if game_framework.get_mode() == 'crop_mode':
+                player.seed_sound.play()
+                pumpkin_seed_crop(player.x,player.y, player.cropObj)
+        elif five_down(e) or five_up(e):
+            if game_framework.get_mode() == 'crop_mode':
+                player.seed_sound.play()
+                peach_seed_crop(player.x,player.y, player.cropObj)
+
         player.dir = 0  # 정지 상태
         player.frame = 0
         player.frame_time = get_time()
@@ -291,6 +295,8 @@ class Player:
         self.water_sound.set_volume(30)
         self.hoe_sound = load_wav('sound//hoe.wav')
         self.hoe_sound.set_volume(30)
+        self.seed_sound = load_wav('sound//seed.wav')
+        self.seed_sound.set_volume(30)
 
         self.state_machine = StateMachine(self)  # 소년 객체의 state machine 생성
         self.state_machine.start(Idle)  # 초기 상태가 idle 로 설정
@@ -299,13 +305,13 @@ class Player:
                 Idle: {right_down: Run, left_down: Run, left_up: Run, right_up: Run,
                        up_down: Run, down_down: Run, up_up: Run, down_up: Run,
                        one_down: Mine, one_up: Mine, two_down: Crop, two_up: Crop,
-                       three_down: Water, three_up: Water,four_down:Seed,four_up:Seed,
-                       six_down:Feed, six_up:Feed, five_down:Seed,five_up:Seed},
+                       three_down: Water, three_up: Water,four_down:Seed, four_up:Seed,
+                       six_down:Feed, six_up:Feed, five_down:Seed, five_up:Seed},
                 Run: {right_down: Idle, left_down: Idle, right_up: Idle, left_up: Idle,
                       up_down: Idle, down_down: Idle, up_up: Idle, down_up: Idle,
                       one_down: Mine, one_up: Mine, two_down: Crop, two_up: Crop,
-                      three_down: Water, three_up: Water,four_down:Seed,four_up:Seed,
-                       six_down:Feed, six_up:Feed, five_down:Seed,five_up:Seed},
+                      three_down: Water, three_up: Water, four_down:Seed, four_up:Seed,
+                       six_down:Feed, six_up:Feed, five_down:Seed, five_up:Seed},
                 Mine:{right_down: Run, left_down: Run,up_down: Run, down_down: Run,
                        left_up: Run, right_up: Run,up_up: Run, down_up: Run,
                         two_down: Crop, two_up: Crop, three_down: Water,three_up: Water,

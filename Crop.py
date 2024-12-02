@@ -9,12 +9,10 @@ def crop_crop(x, y, cropObj): # 괭이
     cropObj.set_crop_position(x, y)
 
 def pumpkin_seed_crop(x, y, cropObj): # 괭이
-    if game_framework.get_mode() == 'crop_mode':
-        cropObj.set_pumpkin_seed_position(x, y)
+    cropObj.set_pumpkin_seed_position(x, y)
 
 def peach_seed_crop(x, y, cropObj): # 괭이
-    if game_framework.get_mode() == 'crop_mode':
-        cropObj.set_peach_seed_position(x, y)
+    cropObj.set_peach_seed_position(x, y)
 
 class CropObj:
     water_image=None
