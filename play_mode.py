@@ -29,6 +29,11 @@ def handle_events():
             change_stage.change_stage(house_mode)
         elif event.type in (SDL_KEYDOWN, SDL_KEYUP):
                 player.handle_events(event)
+        elif event.type == SDL_MOUSEBUTTONDOWN:
+            mx, my = event.x, 800 - 1 - event.y
+            if mx>=50 and mx<=150 and my>=650 and my<=750:
+                print("tip_button down!")
+
 
 def init():
     global world
