@@ -67,6 +67,8 @@ def init():
 
 def finish():
     game_world.clear()
+    global bgm
+    del bgm
     pass
 
 def update():

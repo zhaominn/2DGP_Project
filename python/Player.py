@@ -90,7 +90,7 @@ class Run:
             if get_time() - player.step_grass_sound_play_time > SOUND_DURATION:  # 사운드가 끝났다면
                 player.step_grass_sound.play()
                 player.step_grass_sound_play_time = get_time()
-        elif game_framework.get_mode() == 'house_mode':
+        elif game_framework.get_mode() == 'house_mode'or game_framework.get_mode() == 'coop_mode':
             if get_time() - player.step_wood_sound_play_time > SOUND_DURATION:  # 사운드가 끝났다면
                 player.step_wood_sound.play()
                 player.step_wood_sound_play_time = get_time()
