@@ -82,3 +82,12 @@ def get_mode():
         print(getattr(current_mode, 'name', current_mode.__class__.__name__))
         return getattr(current_mode, 'name', current_mode.__class__.__name__)  # 현재 모드의 모듈 이름을 반환
     return None
+
+def get_prev_mode():
+    global stack
+    if len(stack) > 0:
+        current_mode = stack[-2]
+        print('----------------')
+        print(getattr(current_mode, 'name', current_mode.__class__.__name__))
+        return getattr(current_mode, 'name', current_mode.__class__.__name__)  # 현재 모드의 모듈 이름을 반환
+    return None

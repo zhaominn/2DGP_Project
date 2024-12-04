@@ -7,10 +7,10 @@ class MainGround:
 
     def draw(self):
         self.image.clip_draw(0, 0, 1600, 800, 1600 / 2, 800 / 2)
-        draw_rectangle(*self.get_crop_bb())
-        draw_rectangle(*self.get_house_bb())
-        draw_rectangle(*self.get_coop_bb())
-        draw_rectangle(*self.get_mine_bb())
+        #draw_rectangle(*self.get_crop_bb())
+        #draw_rectangle(*self.get_house_bb())
+        #draw_rectangle(*self.get_coop_bb())
+        #draw_rectangle(*self.get_mine_bb())
 
     def update(self):
         pass

@@ -4,6 +4,7 @@ import game_framework
 import game_world
 import play_mode
 import stage_change
+import tip_mode
 from Crop import CropObj
 from Player import Player
 from tool import Tool
@@ -20,6 +21,10 @@ def handle_events():
             change_stage.change_stage(play_mode)
         elif event.type in (SDL_KEYDOWN, SDL_KEYUP):
                 player.handle_events(event)
+        elif event.type == SDL_MOUSEBUTTONDOWN:
+            mx, my = event.x, 800 - 1 - event.y
+            if mx>=50 and mx<=150 and my>=650 and my<=750:
+                game_framework.push_mode(tip_mode)
 
 def init():
     global world

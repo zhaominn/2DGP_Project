@@ -7,7 +7,7 @@ class HouseGround:
 
     def draw(self):
         self.ground_image.clip_draw(0, 0, 1600, 800, 1600 / 2, 800 / 2)
-        draw_rectangle(*self.get_bed_bb())
+        #draw_rectangle(*self.get_bed_bb())
 
     def update(self):
         pass

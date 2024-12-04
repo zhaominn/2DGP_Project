@@ -76,7 +76,7 @@ class Cow:
                 2 * self.block_height, self.block_height, self.block_width, self.block_height,
                 self.x, self.y, 100, 100
             )
-        draw_rectangle(*self.get_bb())
+        #draw_rectangle(*self.get_bb())
 
     def update(self):
         self.frame = (self.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 4
@@ -159,7 +159,7 @@ class Sheep:
                     int(self.frame) * self.block_height, 3 * self.block_height, self.block_width, self.block_height,
                     self.x, self.y, 100, 100
                 )
-        draw_rectangle(*self.get_bb())
+        #draw_rectangle(*self.get_bb())
 
     def update(self):
         self.frame = (self.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 4
@@ -243,7 +243,7 @@ class Pig:
                     int(self.frame) * self.block_height, 3 * self.block_height, self.block_width, self.block_height,
                     self.x, self.y, 100, 100
                 )
-        draw_rectangle(*self.get_bb())
+        #draw_rectangle(*self.get_bb())
 
     def update(self):
         self.frame = (self.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 4

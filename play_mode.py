@@ -7,6 +7,7 @@ import game_world
 import house_mode
 import mine_mode
 import stage_change
+import tip_mode
 from Player import Player
 from tool import Tool
 from main_ground import MainGround
@@ -32,7 +33,7 @@ def handle_events():
         elif event.type == SDL_MOUSEBUTTONDOWN:
             mx, my = event.x, 800 - 1 - event.y
             if mx>=50 and mx<=150 and my>=650 and my<=750:
-                print("tip_button down!")
+                game_framework.push_mode(tip_mode)
 
 
 def init():

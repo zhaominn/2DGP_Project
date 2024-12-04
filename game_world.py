@@ -1,4 +1,5 @@
 world = [[] for _ in range(4)]
+
 collision_pairs={}
 # collision_pairs={ key: [[],[]], key: [[],[]]...}
 
